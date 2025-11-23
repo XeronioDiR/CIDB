@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.xeroniodir.cdib.client.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "ItemDurabilityColorMixin",
+    "ItemDurabilityStepMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  },
+  "mixins": [
+  ]
+}

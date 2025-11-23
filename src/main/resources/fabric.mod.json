@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "cdib",
+  "version": "${version}",
+  "name": "CDIB",
+  "description": "Change colors of item durability bar to what you like!",
+  "authors": [
+    "XeronioDiR"
+  ],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/cdib/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "net.xeroniodir.cdib.client.CdibDataGenerator"
+    ],
+    "client": [
+      "net.xeroniodir.cdib.client.CdibClient"
+    ],
+    "main": [
+      "net.xeroniodir.cdib.Cdib"
+    ],
+    "modmenu": [
+      "net.xeroniodir.cdib.client.ModMenuIntegrator"
+    ]
+  },
+  "mixins": [
+    "cdib.mixins.json",
+    {
+      "config": "cdib.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}",
+    "yet_another_config_lib_v3": ">=3.7.1+1.21.6-fabric"
+  }
+}
