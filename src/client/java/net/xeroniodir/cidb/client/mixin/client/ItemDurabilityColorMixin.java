@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.awt.*;
+import java.util.List;
 
 @Mixin(Item.class)
 public class ItemDurabilityColorMixin {
@@ -18,6 +19,7 @@ public class ItemDurabilityColorMixin {
         float pct;
         Color basicColor = ModConfig.HANDLER.instance().basicDurabilityColor;
         Color twinklingColor = ModConfig.HANDLER.instance().twinklingDurabilityColor;
+        List<Color> colorList = ModConfig.HANDLER.instance().colorList;
         double twinklingSpeed = ModConfig.HANDLER.instance().twinklingSpeed;
 
         if (stack.getMaxDamage() > 0) {
@@ -30,9 +32,27 @@ public class ItemDurabilityColorMixin {
         int procent = ModConfig.HANDLER.instance().durabilityProcent;
 
         boolean blinking = pct < 0.01f * procent;
+        float pos = (Math.min(0, pct * (colorList.size() - 1)));
+        int index = (int) pos;
+        float local = pos % colorList.size();
+        Color c1 = colorList.get(index);
+        int ri;
+        int gi;
+        int bi;
+        if(colorList.size() > 1){
+            Color c2 = colorList.get(index + 1);
 
-        int vr = basicColor.getRed(), vg =  basicColor.getGreen(), vb =  basicColor.getBlue();
-        int br = twinklingColor.getRed(), bg =  twinklingColor.getGreen(), bb =  twinklingColor.getBlue();
+            ri = (int)(c1.getRed() * (1 - local) + c2.getRed() * (local));
+            gi = (int)(c1.getGreen());
+            bi = (int)(c1.getBlue());
+        }
+        else{
+            ri = (int)(c1.getRed());
+            gi = (int)(c1.getGreen());
+            bi = (int)(c1.getBlue());
+        }
+
+        int tr = twinklingColor.getRed(), tg =  twinklingColor.getGreen(), tb =  twinklingColor.getBlue();
 
         int r, g, b;
 
@@ -41,14 +61,14 @@ public class ItemDurabilityColorMixin {
 
             float pulse = (float) ((Math.sin(t * 0.008 * twinklingSpeed) + 1.0) / 2);
 
-            r = (int)(br * (1 - pulse) + vr * pulse);
-            g = (int)(bg * (1 - pulse) + vg * pulse);
-            b = (int)(bb * (1 - pulse) + vb * pulse);
+            r = (int)(tr * (1 - pulse) + ri * pulse);
+            g = (int)(tg * (1 - pulse) + gi * pulse);
+            b = (int)(tb * (1 - pulse) + bi * pulse);
 
         } else {
-            r = (vr);
-            g = (vg);
-            b = (vb);
+            r = (ri);
+            g = (gi);
+            b = (bi);
         }
 
         int color = (r << 16) | (g << 8) | b;

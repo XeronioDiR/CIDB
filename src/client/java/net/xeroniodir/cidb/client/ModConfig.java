@@ -1,17 +1,18 @@
 package net.xeroniodir.cidb.client;
 
 import com.google.gson.GsonBuilder;
-import dev.isxander.yacl3.api.controller.*;
-import net.minecraft.util.Identifier;
 import dev.isxander.yacl3.api.*;
+import dev.isxander.yacl3.api.controller.*;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 import java.awt.*;
+import java.util.List;
 
 public class ModConfig {
 
@@ -24,6 +25,8 @@ public class ModConfig {
                     .build())
             .build();
     @SerialEntry
+    public static List<Color> colorList = List.of(new Color(0x00FF00),new Color(0x00FF00));
+    @SerialEntry
     public static boolean durabilityTwinkling = true;
     @SerialEntry
     public static boolean durabilityBarLengthOnCritical = true;
@@ -34,10 +37,6 @@ public class ModConfig {
     @SerialEntry
     public static Color basicDurabilityColor = new Color(0x00FF00);
     @SerialEntry
-    public static Color middleDurabilityColor = new Color(0xFFFF00);
-    @SerialEntry
-    public static Color endDurabilityColor = new Color(0xFF0000);
-    @SerialEntry
     public static Color twinklingDurabilityColor = new Color(0xFF9898);
 
     public void save() {  }
@@ -46,10 +45,17 @@ public class ModConfig {
         ModConfig cfg = HANDLER.instance();
 
         return YetAnotherConfigLib.createBuilder()
-                .title(Text.literal("Cidb"))
+                .title(Text.literal("CIDB"))
                 .category(ConfigCategory.createBuilder()
                         .name(Text.literal("Options"))
-                        .tooltip(Text.literal("Cidb Options"))
+                        .tooltip(Text.literal("CIDB Options"))
+                        .option(ListOption.<Color>createBuilder()
+                                .name(Text.literal("Durability Bar Colors"))
+                                .binding(List.of(new Color(0x00FF00),new Color(0xFF0000)), () -> colorList, newVal -> colorList = newVal)
+                                .controller(ColorControllerBuilder::create)
+                                .minimumNumberOfEntries(1)
+                                .initial(new Color(0xFFFFFF))
+                                .build())
                         .group(OptionGroup.createBuilder()
                                 .name(Text.literal("Item Durability"))
                                 .description(OptionDescription.of(Text.literal("Item Durability Options")))

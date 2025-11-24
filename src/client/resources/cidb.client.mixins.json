@@ -12,7 +12,5 @@
   },
   "overwrites": {
     "requireAnnotations": true
-  },
-  "mixins": [
-  ]
+  }
 }
