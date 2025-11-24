@@ -1,9 +1,9 @@
-package net.xeroniodir.cdib;
+package net.xeroniodir.cidb;
 
 
 import net.fabricmc.api.ModInitializer;
 
-public class Cdib implements ModInitializer {
+public class Cidb implements ModInitializer {
 
     @Override
     public void onInitialize() {

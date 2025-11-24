@@ -1,8 +1,8 @@
-package net.xeroniodir.cdib.client.mixin.client;
+package net.xeroniodir.cidb.client.mixin.client;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.xeroniodir.cdib.client.ModConfig;
+import net.xeroniodir.cidb.client.ModConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

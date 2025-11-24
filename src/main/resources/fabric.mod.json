@@ -1,34 +1,34 @@
 {
   "schemaVersion": 1,
-  "id": "cdib",
+  "id": "cidb",
   "version": "${version}",
-  "name": "CDIB",
+  "name": "CIDB",
   "description": "Change colors of item durability bar to what you like!",
   "authors": [
     "XeronioDiR"
   ],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/cdib/icon.png",
+  "icon": "assets/cidb/icon.png",
   "environment": "client",
   "entrypoints": {
     "fabric-datagen": [
-      "net.xeroniodir.cdib.client.CdibDataGenerator"
+      "net.xeroniodir.cidb.client.CidbDataGenerator"
     ],
     "client": [
-      "net.xeroniodir.cdib.client.CdibClient"
+      "net.xeroniodir.cidb.client.CidbClient"
     ],
     "main": [
-      "net.xeroniodir.cdib.Cdib"
+      "net.xeroniodir.cidb.Cidb"
     ],
     "modmenu": [
-      "net.xeroniodir.cdib.client.ModMenuIntegrator"
+      "net.xeroniodir.cidb.client.ModMenuIntegrator"
     ]
   },
   "mixins": [
-    "cdib.mixins.json",
+    "Cidb.mixins.json",
     {
-      "config": "cdib.client.mixins.json",
+      "config": "cidb.client.mixins.json",
       "environment": "client"
     }
   ],

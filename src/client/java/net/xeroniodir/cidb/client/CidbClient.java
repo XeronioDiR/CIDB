@@ -1,8 +1,8 @@
-package net.xeroniodir.cdib.client;
+package net.xeroniodir.cidb.client;
 
 import net.fabricmc.api.ClientModInitializer;
 
-public class CdibClient implements ClientModInitializer {
+public class CidbClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {

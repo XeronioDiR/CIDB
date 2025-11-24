@@ -1,4 +1,4 @@
-package net.xeroniodir.cdib.client;
+package net.xeroniodir.cidb.client;
 
 import com.google.gson.GsonBuilder;
 import dev.isxander.yacl3.api.controller.*;
@@ -16,9 +16,9 @@ import java.awt.*;
 public class ModConfig {
 
     public static ConfigClassHandler<ModConfig> HANDLER = ConfigClassHandler.createBuilder(ModConfig.class)
-            .id(Identifier.of("cdib", "cdib"))
+            .id(Identifier.of("cidb", "cidb"))
             .serializer(config -> GsonConfigSerializerBuilder.create(config)
-                    .setPath(FabricLoader.getInstance().getConfigDir().resolve("cdib.json5"))
+                    .setPath(FabricLoader.getInstance().getConfigDir().resolve("cidb.json5"))
                     .appendGsonBuilder(GsonBuilder::setPrettyPrinting) // not needed, pretty print by default
                     .setJson5(true)
                     .build())
@@ -38,7 +38,7 @@ public class ModConfig {
     @SerialEntry
     public static Color endDurabilityColor = new Color(0xFF0000);
     @SerialEntry
-    public static Color twinklingDurabilityColor = new Color(0xFF0000);
+    public static Color twinklingDurabilityColor = new Color(0xFF9898);
 
     public void save() {  }
 
@@ -46,10 +46,10 @@ public class ModConfig {
         ModConfig cfg = HANDLER.instance();
 
         return YetAnotherConfigLib.createBuilder()
-                .title(Text.literal("Cdib"))
+                .title(Text.literal("Cidb"))
                 .category(ConfigCategory.createBuilder()
                         .name(Text.literal("Options"))
-                        .tooltip(Text.literal("Cdib Options"))
+                        .tooltip(Text.literal("Cidb Options"))
                         .group(OptionGroup.createBuilder()
                                 .name(Text.literal("Item Durability"))
                                 .description(OptionDescription.of(Text.literal("Item Durability Options")))
@@ -62,7 +62,7 @@ public class ModConfig {
                                 .option(Option.<Color>createBuilder()
                                         .name(Text.literal("Twinkling Durability Color"))
                                         .description(OptionDescription.of(Text.literal("Twinkling color of item durability")))
-                                        .binding(new Color(0xFF0000), () -> twinklingDurabilityColor, newVal -> twinklingDurabilityColor = newVal)
+                                        .binding(new Color(0xFF9898), () -> twinklingDurabilityColor, newVal -> twinklingDurabilityColor = newVal)
                                         .controller(ColorControllerBuilder::create)
                                         .build())
                                 .option(Option.<Boolean>createBuilder()
@@ -78,7 +78,7 @@ public class ModConfig {
                                         .controller(TickBoxControllerBuilder::create)
                                         .build())
                                 .option(Option.<Integer>createBuilder()
-                                        .name(Text.literal("Critical Durability Procent"))
+                                        .name(Text.literal("Critical Durability Percent"))
                                         .description(OptionDescription.of(Text.literal("If item durability is lower then n%, it will be considered critical amount.")))
                                         .binding(25, () -> durabilityProcent, newVal -> durabilityProcent = newVal)
                                         .controller(opt -> IntegerSliderControllerBuilder.create(opt)

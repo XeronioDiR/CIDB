@@ -1,9 +1,9 @@
-package net.xeroniodir.cdib.client;
+package net.xeroniodir.cidb.client;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
-public class CdibDataGenerator implements DataGeneratorEntrypoint {
+public class CidbDataGenerator implements DataGeneratorEntrypoint {
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {

@@ -1,4 +1,4 @@
-package net.xeroniodir.cdib.client;
+package net.xeroniodir.cidb.client;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
