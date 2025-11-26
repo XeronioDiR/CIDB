@@ -26,7 +26,7 @@
     ]
   },
   "mixins": [
-    "Cidb.mixins.json",
+    "cidb.mixins.json",
     {
       "config": "cidb.client.mixins.json",
       "environment": "client"
