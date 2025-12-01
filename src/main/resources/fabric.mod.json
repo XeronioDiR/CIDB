@@ -3,10 +3,12 @@
   "id": "cidb",
   "version": "${version}",
   "name": "CIDB",
-  "description": "",
-  "authors": [],
+  "description": "Change colors of item durability bar to what you like!",
+  "authors": [
+    "XeronioDiR"
+  ],
   "contact": {},
-  "license": "CC-BY-SA-4.0",
+  "license": "CC-",
   "icon": "assets/cidb/icon.png",
   "environment": "client",
   "entrypoints": {
@@ -18,10 +20,10 @@
     ],
     "main": [
       "net.xeroniodir.cidb.Cidb"
-    ],
-    "modmenu": [
-      "net.xeroniodir.cidb.client.ModMenuIntegrator"
-    ]
+      ],
+      "modmenu": [
+        "net.xeroniodir.cidb.client.ModMenuIntegrator"
+      ]
   },
   "mixins": [
     "cidb.mixins.json",
@@ -33,7 +35,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "${minecraft_version}",
-    "yet_another_config_lib_v3": ">=3.7.1+1.21.6-fabric"
+    "minecraft": ">=${min_minecraft_version} <=${max_minecraft_version}",
+    "yet_another_config_lib_v3": ">=${yacl_version}"
   }
 }

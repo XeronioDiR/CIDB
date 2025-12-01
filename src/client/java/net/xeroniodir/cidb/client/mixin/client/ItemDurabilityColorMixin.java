@@ -17,12 +17,11 @@ public class ItemDurabilityColorMixin {
     @Inject(method = "getItemBarColor", at = @At("HEAD"), cancellable = true)
     private void injectBarColor(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         float pct;
-        Color basicColor = ModConfig.HANDLER.instance().basicDurabilityColor;
         Color twinklingColor = ModConfig.HANDLER.instance().twinklingDurabilityColor;
         List<Color> colorList = ModConfig.HANDLER.instance().colorList;
         double twinklingSpeed = ModConfig.HANDLER.instance().twinklingSpeed;
 
-        if (stack.getMaxDamage() > 0) {
+        if (stack.getDamage() > 0) {
             pct = 1f - ((float) stack.getDamage() / (float) stack.getMaxDamage());
         } else {
             pct = 1f;
@@ -32,21 +31,23 @@ public class ItemDurabilityColorMixin {
         int procent = ModConfig.HANDLER.instance().durabilityProcent;
 
         boolean blinking = pct < 0.01f * procent;
-        float pos = (Math.min(0, pct * (colorList.size() - 1)));
+        float pos = (float) stack.getDamage() / stack.getMaxDamage() * (colorList.size() - 1);
         int index = (int) pos;
-        float local = pos % colorList.size();
+        if (index >= colorList.size() - 1) index = colorList.size() - 2;
+        if (index < 0) index = 0;
+        float local = pos - index;
         Color c1 = colorList.get(index);
         int ri;
         int gi;
         int bi;
-        if(colorList.size() > 1){
+        if(colorList.size() > 1){  /// If colors more than one, making transition
             Color c2 = colorList.get(index + 1);
 
             ri = (int)(c1.getRed() * (1 - local) + c2.getRed() * (local));
-            gi = (int)(c1.getGreen());
-            bi = (int)(c1.getBlue());
+            gi = (int)(c1.getGreen() * (1 - local) + c2.getGreen() * (local));
+            bi = (int)(c1.getBlue() * (1 - local) + c2.getBlue() * (local));
         }
-        else{
+        else{ /// If only one, using only it
             ri = (int)(c1.getRed());
             gi = (int)(c1.getGreen());
             bi = (int)(c1.getBlue());
@@ -57,7 +58,7 @@ public class ItemDurabilityColorMixin {
         int r, g, b;
 
         if (blinking && ModConfig.HANDLER.instance().durabilityTwinkling) {
-            long t = System.currentTimeMillis();
+            long t = System.currentTimeMillis(); /// Using System since it will not change on tick speed (or other server stuff)
 
             float pulse = (float) ((Math.sin(t * 0.008 * twinklingSpeed) + 1.0) / 2);
 

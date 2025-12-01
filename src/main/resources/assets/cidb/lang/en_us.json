@@ -1,2 +1,26 @@
 {
+  "cdib.config.colorlist.description": "A list of colors that smoothly transition according to item durability. These colors define the gradient of the durability bar.\nP.S. transparency doesn't affect anything. It's here for prevent game from crashing.",
+  "cdib.config.twinklingdurabilitycolor.description": "The color used for the flicker effect when the item's durability reaches the critical threshold.",
+  "cdib.config.durabilitytwinkling.description": "If enabled, the durability bar will flicker when the item is at critical durability",
+  "cdib.config.durabilitybarincreaseoncritical.description": "If enabled, the durability bar temporarily rises to full length while at critical durability. \nMeanwhile when durability is not critical, bar will reduce faster (not durability).",
+  "cdib.config.criticalpercent.description": "The percentage of durability at which the item is considered to be in a critical state.",
+  "cdib.config.durabilitytwinklingspeed.description": "Controls how fast the durability bar flickers at critical durability.",
+  "cdib.config.durabilitybarstyle.description": "Defines how the durability bar is displayed. \nHorizontal - Vanilla style.\nVertical - Vertical bar at left side of item, decreasing from top to bottom.\nPercent - Displays durabiltiy as a percentage\nAbsolute - Displays the remaining durability as a raw value, using short scales (1.0k,1.0m,1.0b),when needed.",
+  "cdib.config.bundlebarcolor.description": "The color used for bar the non-full bundle.",
+  "cdib.config.fullbundlebarcolor.description": "The color used for the bar of full bundle.",
+
+  "cdib.barstyles.horizontal": "Horizontal",
+  "cdib.barstyles.vertical": "Vertical",
+  "cdib.barstyles.textpercent": "Percents",
+  "cdib.barstyles.textdurability": "Absolute",
+
+  "cdib.config.colorlist.name": "Durability Colors",
+  "cdib.config.twinklingdurabilitycolor.name": "Durability Flickering Color",
+  "cdib.config.durabilitytwinkling.name": "Flickering Durability",
+  "cdib.config.durabilitybarincreaseoncritical.name": "Increasing Durability bar on Critical",
+  "cdib.config.criticalpercent.name": "Critical Percent",
+  "cdib.config.durabilitytwinklingspeed.name": "Durability Flickering Speed",
+  "cdib.config.durabilitybarstyle.name": "Durability Bar Style",
+  "cdib.config.bundlebarcolor.name": "Bundle Bar Color",
+  "cdib.config.fullbundlebarcolor.name": "Full Bundle Bar Color"
 }

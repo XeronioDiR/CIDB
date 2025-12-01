@@ -5,12 +5,16 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "ItemDurabilityColorMixin",
-    "ItemDurabilityStepMixin"
+    "ItemDurabilityDrawMixin",
+    "ItemDurabilityStepMixin",
+    "BundleBarColorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "overwrites": {
     "requireAnnotations": true
-  }
+  },
+  "mixins": [
+  ]
 }
