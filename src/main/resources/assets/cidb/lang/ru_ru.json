@@ -1,0 +1,25 @@
+{
+  "cdib.config.colorlist.description": "Массив цветов, плавно меняющиеся от прочности. Эти цвета используются для градиента полоски прочности. \nP.S. прозрачность ни на что не влияет. Она существует чтобы игра не вылетала.",
+  "cdib.config.twinklingdurabilitycolor.description": "Цвет, используемый для мерцания полоски, когда прочность находится на критической отметке.",
+  "cdib.config.durabilitytwinkling.description": "Если включён, полоска будет мерцать, когда прочность будет находится на критической отметке.",
+  "cdib.config.durabilitybarincreaseoncritical.description": "Если включён, полоска прочности поднимется до максимума. \nОднако, когда прочность не критическая, полоска будет убывать быстрее (не прочность).",
+  "cdib.config.criticalpercent.description": "Процент прочности, который считается критической отметкой.",
+  "cdib.config.durabilitytwinklingspeed.description": "Контролирует, насколько быстро будет мерцать полоска, когда прочность находится на критической отметке.",
+  "cdib.config.durabilitybarstyle.description": "Определяет как будет отображатся полоска. \nГоризонтальный - Стандартный стиль.\nВертикальный - Вертикальная полоска слева от предмета, уменьшающаяся сверху вниз.\nПроцент - Прочность отображается процентами.\nАбсолютный - Отображает прочность в чистом виде, используя сокращения (1.0k,1.0m,1.0b) когда нужно.",
+  "cdib.config.bundlebarcolor.description": "Цвет, используемый для полоски незабитого мешка",
+  "cdib.config.fullbundlebarcolor.description": "Цвет, используемый для полоски забитого мешка",
+
+  "cdib.barstyles.horizontal": "Горизонтальный",
+  "cdib.barstyles.vertical": "Вертикальный",
+  "cdib.barstyles.textpercent": "Процент",
+  "cdib.barstyles.textdurability": "Абсолютный",
+  "cdib.config.colorlist.name": "Цвета прочности",
+  "cdib.config.twinklingdurabilitycolor.name": "Цвет мерцания прочности",
+  "cdib.config.durabilitytwinkling.name": "Мерцание прочности",
+  "cdib.config.durabilitybarincreaseoncritical.name": "Увеличение полоски на критической отметке",
+  "cdib.config.criticalpercent.name": "Критическая отметка",
+  "cdib.config.durabilitytwinklingspeed.name": "Скорость мерцания прочности",
+  "cdib.config.durabilitybarstyle.name": "Стиль полоски прочности",
+  "cdib.config.bundlebarcolor.name": "Цвет полоски Мешка",
+  "cdib.config.fullbundlebarcolor.name": "Цвет полоски Полного Мешка"
+}

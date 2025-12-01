@@ -39,5 +39,7 @@ public class ItemDurabilityStepMixin {
         if (step > 13) step = 13;
 
         cir.setReturnValue(step);}
+        /// i tried adding more precise steps, but it didn't work
+        /// but bar will not be going further back or forward this mixin, so it's good.
     }
 }
