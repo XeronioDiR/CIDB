@@ -8,7 +8,7 @@
     "XeronioDiR"
   ],
   "contact": {},
-  "license": "CC-",
+  "license": "CC-BY-SA-4.0",
   "icon": "assets/cidb/icon.png",
   "environment": "client",
   "entrypoints": {
@@ -35,7 +35,6 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": ">=${min_minecraft_version} <=${max_minecraft_version}",
-    "yet_another_config_lib_v3": ">=${yacl_version}"
+    "minecraft": ">=${min_minecraft_version} <=${max_minecraft_version}"
   }
 }

@@ -4,10 +4,6 @@
   "package": "net.xeroniodir.cidb.client.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "ItemDurabilityColorMixin",
-    "ItemDurabilityDrawMixin",
-    "ItemDurabilityStepMixin",
-    "BundleBarColorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
