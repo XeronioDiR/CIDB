@@ -29,14 +29,6 @@ fabricApi {
 
 repositories {
     maven {
-        name 'Xander Maven'
-        url 'https://maven.isxander.dev/releases'
-    }
-    maven {
-        name = "Terraformers"
-        url = "https://maven.terraformersmc.com/"
-    }
-    maven {
         name = "MidNight"
         url = "https://maven.midnightdust.eu/releases"
     }
