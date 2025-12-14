@@ -68,7 +68,6 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
     @Override
     protected void appendClickableNarrations(NarrationMessageBuilder builder) {}
 
-    // --- Внутренний класс строки (теперь содержит несколько предметов) ---
     public class ItemRowEntry extends EntryListWidget.Entry<ItemRowEntry> {
         private final List<Item> rowItems;
 
@@ -78,19 +77,15 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
 
         @Override
         public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
-            // Рисуем предметы по горизонтали
             for (int i = 0; i < rowItems.size(); i++) {
                 Item item = rowItems.get(i);
                 ItemStack stack = new ItemStack(item);
 
-                // Вычисляем позицию X с учетом отступа
                 int itemX = x + itemsMarginLeft + i * ITEM_SIZE;
-                int itemY = y + 1; // Небольшой отступ сверху
+                int itemY = y + 1;
 
-                // 1. Рендер иконки
                 context.drawItem(stack, itemX, itemY, 0);
 
-                // 2. Рендер рамки для выбранного предмета
                 if (item == option.getter.get()) {
                     context.drawBorder(itemX - 1, itemY - 1, ITEM_SIZE, ITEM_SIZE, 0xFF00FF00); // Зеленая рамка
                 }
@@ -99,18 +94,15 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
 
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
-            if (button == 0) { // Левый клик
-                // Находим, какой предмет был нажат
+            if (button == 0) {
                 for (int i = 0; i < rowItems.size(); i++) {
                     int itemX = getX() + itemsMarginLeft + i * ITEM_SIZE;
                     int itemY = getY() + 1;
 
-                    // Проверяем, попал ли клик в область предмета
                     if (mouseX >= itemX && mouseX < itemX + ITEM_SIZE) {
                         Item item = rowItems.get(i);
                         option.setter.accept(item);
 
-                        // Возвращаемся к родителю
                         client.setScreen(parentScreen.parent);
                         return true;
                     }
