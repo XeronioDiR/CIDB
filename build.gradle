@@ -29,8 +29,8 @@ fabricApi {
 
 repositories {
     maven {
-        name = "MidNight"
-        url = "https://maven.midnightdust.eu/releases"
+        name = "Terraformers"
+        url = "https://maven.terraformersmc.com/"
     }
 }
 
