@@ -14,6 +14,7 @@ import net.minecraft.text.Text;
 import net.xeroniodir.cidb.client.config.Option; // Импорт твоего класса Option
 
 import java.util.List;
+import java.util.Objects;
 
 public class ConfigScreen extends Screen {
     private final Screen parent;
@@ -38,17 +39,17 @@ public class ConfigScreen extends Screen {
         this.addDrawableChild(optionList);
         int buttonY = this.height - 26;
         int buttonHeight = 20;
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Сохранить"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.save"), b -> {
             ConfigManager.save();
 
         }).dimensions(this.width / 2 - 37, buttonY, 75, buttonHeight).build());
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Сброс всего"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.reset"), b -> {
             for (Option<?> option : options) {
                 option.reset();
             }
             this.client.setScreen(new ConfigScreen(parent, options));
         }).dimensions(this.width / 2 - 135, buttonY, 75, buttonHeight).build());
-        cancelButton = ButtonWidget.builder(Text.literal(ConfigManager.isEqual() ? "Выйти" : "Отмена"), b -> {
+        cancelButton = ButtonWidget.builder(Text.translatable(ConfigManager.isEqual() ? "cidb.cconfig.exit" : "cidb.cconfig.cancel"), b -> {
             if(ConfigManager.isEqual()){
                 this.client.setScreen(parent);
             }
@@ -63,7 +64,7 @@ public class ConfigScreen extends Screen {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        cancelButton.setMessage(Text.literal(ConfigManager.isEqual() ? "Выйти" : "Отмена"));
+        cancelButton.setMessage(Text.translatable(ConfigManager.isEqual() ? "cidb.cconfig.exit" : "cidb.cconfig.cancel"));
 
         TextWidget titleText = new TextWidget(this.title,client.textRenderer).alignRight().setTextColor(0xFFFFFF);
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
@@ -149,7 +150,7 @@ public class ConfigScreen extends Screen {
 
             @Override
             public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
-                TextWidget titleText = new TextWidget(Text.literal(option.title),client.textRenderer).setTextColor(0xFFFFFF);
+                TextWidget titleText = new TextWidget(Text.translatable(option.title),client.textRenderer).setTextColor(0xFFFFFF);
                 titleText.setX(x + 5);
                 titleText.setY(y + 6);
                 titleText.renderWidget(context,mouseX,mouseY,delta);
@@ -164,8 +165,8 @@ public class ConfigScreen extends Screen {
                 valueWidget.setY(y);
                 valueWidget.render(context, mouseX, mouseY, delta);
 
-                if (hovered) {
-                    //TODO: Tooltip
+                if (valueWidget.isHovered() && !Objects.equals(option.description, "")) {
+                    context.drawTooltip(Text.translatable(option.description), mouseX, mouseY);
                 }
             }
         }

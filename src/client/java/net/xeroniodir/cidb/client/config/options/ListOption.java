@@ -22,8 +22,9 @@ public class ListOption<T> extends Option<List<T>> {
                       Supplier<List<T>> getter,
                       Consumer<List<T>> setter,
                       Supplier<T> defaultElementSupplier,
-                      TriFunction<T, Consumer<T>, Supplier<T>, Option<T>> elementOptionFactory) {
-        super(title, defaultValue, getter, setter);
+                      TriFunction<T, Consumer<T>, Supplier<T>, Option<T>> elementOptionFactory,
+                      String description) {
+        super(title, defaultValue, getter, setter, description);
         this.defaultElementSupplier = defaultElementSupplier;
         this.elementOptionFactory = elementOptionFactory;
     }

@@ -1,5 +1,5 @@
 {
-  "cdib.config.colorlist.description": "Массив цветов, плавно меняющиеся от прочности. Эти цвета используются для градиента полоски прочности. \nP.S. прозрачность ни на что не влияет. Она существует чтобы игра не вылетала.",
+  "cdib.config.colorlist.description": "Массив цветов, плавно меняющиеся от прочности. \nЭти цвета используются для градиента полоски прочности.",
   "cdib.config.twinklingdurabilitycolor.description": "Цвет, используемый для мерцания полоски, когда прочность находится на критической отметке.",
   "cdib.config.durabilitytwinkling.description": "Если включён, полоска будет мерцать, когда прочность будет находится на критической отметке.",
   "cdib.config.durabilitybarincreaseoncritical.description": "Если включён, полоска прочности поднимется до максимума. \nОднако, когда прочность не критическая, полоска будет убывать быстрее (не прочность).",
@@ -13,6 +13,7 @@
   "cdib.barstyles.vertical": "Вертикальный",
   "cdib.barstyles.textpercent": "Процент",
   "cdib.barstyles.textdurability": "Абсолютный",
+
   "cdib.config.colorlist.name": "Цвета прочности",
   "cdib.config.twinklingdurabilitycolor.name": "Цвет мерцания прочности",
   "cdib.config.durabilitytwinkling.name": "Мерцание прочности",
@@ -21,5 +22,10 @@
   "cdib.config.durabilitytwinklingspeed.name": "Скорость мерцания прочности",
   "cdib.config.durabilitybarstyle.name": "Стиль полоски прочности",
   "cdib.config.bundlebarcolor.name": "Цвет полоски Мешка",
-  "cdib.config.fullbundlebarcolor.name": "Цвет полоски Полного Мешка"
+  "cdib.config.fullbundlebarcolor.name": "Цвет полоски Полного Мешка",
+  "cidb.cconfig.cancel": "Отмена",
+  "cidb.cconfig.exit": "Выйти",
+  "cidb.cconfig.save": "Сохранить",
+  "cidb.cconfig.add": "Добавить",
+  "cidb.cconfig.reset": "Сброс"
 }

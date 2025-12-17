@@ -5,8 +5,6 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.xeroniodir.cidb.client.config.ConfigManager;
 import net.xeroniodir.cidb.client.config.ConfigScreen;
@@ -16,8 +14,6 @@ import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class ModMenuIntegrator implements ModMenuApi {
@@ -28,91 +24,87 @@ public class ModMenuIntegrator implements ModMenuApi {
 
             return new ConfigScreen(parent, List.of(
                     new BooleanOption(
-                            "Тестовый Булеан",
+                            "Durability Flickering",
                             true,
-                            () -> ConfigManager.get().booleanTest,
-                            v -> ConfigManager.get().booleanTest = v
+                            () -> ConfigManager.get().durabilityTwinkling,
+                            v -> ConfigManager.get().durabilityTwinkling = v,
+                            ""
+                    ),
+                    new BooleanOption(
+                            "Increasing Durability bar on Critical",
+                            true,
+                            () -> ConfigManager.get().durabilityBarLengthOnCritical,
+                            v -> ConfigManager.get().durabilityBarLengthOnCritical = v,
+                            ""
+                    ),
+                    new EnumOption<DurabilityBarStyleEnum>(
+                            "Durability Bar Style",
+                            DurabilityBarStyleEnum.HORIZONTAL,
+                            () -> ConfigManager.get().durabilityBarStyle,
+                            v -> ConfigManager.get().durabilityBarStyle = v,
+                            DurabilityBarStyleEnum.class,
+                            ""
+                    ),
+                    new DoubleOption(
+                            "Flicker Speed",
+                            1,
+                            0.1, 20.0,
+                            () -> ConfigManager.get().twinklingSpeed,
+                            v -> ConfigManager.get().twinklingSpeed = v,
+                            ""
                     ),
                     new IntegerOption(
-                            "Слайдер (0-100)",
-                            50,
+                            "Critical Durability Percent",
+                            25,
                             0, 100,
-                            () -> ConfigManager.get().intSliderTest,
-                            v -> ConfigManager.get().intSliderTest = v
-                    ),
-                    new ItemOption(
-                            "Выбранный предмет",
-                            Items.OAK_LOG,
-                            () -> {
-                                Identifier id = Identifier.tryParse(ConfigManager.get().selectedItemId);
-                                return Registries.ITEM.get(id);
-                            },
-                            (Item item) -> {
-                                Identifier id = Registries.ITEM.getId(item);
-
-                                ConfigManager.get().selectedItemId = id.toString();
-                            }
+                            () -> ConfigManager.get().durabiltiyProcent,
+                            v -> ConfigManager.get().durabiltiyProcent = v,
+                            ""
                     ),
                     new ListOption<Integer>(
-                            "Мой Список Чисел",
-                            List.of(10, 20),
-                            () -> ConfigManager.get().integerListTest,
-                            v -> ConfigManager.get().integerListTest = v,
-
-                            () -> 0,
-
-                            (val, setter, getter) -> new IntegerOption(
+                            "cdib.config.colorlist.name",
+                            List.of(0xFF00FF00,0xFFFF0000),
+                            () -> ConfigManager.get().colorList,
+                            v -> ConfigManager.get().colorList = v,
+                            Color.green::getRGB,
+                            (vals, setters, getters) -> new ColorOption(
                                     "",
-                                    val,
-                                    0, 100,
-                                    getter,
-                                    setter
-                            )
-                    ),
-                    new ListOption<List<Integer>>(
-                            "Мой Список Списков Чисел",
-                            List.of(List.of(10, 20), List.of(10, 20)),
-                            () -> ConfigManager.get().integerListList,
-                            v -> ConfigManager.get().integerListList = v,
-
-                            () -> List.of(0),
-
-                            (val,setter, getter) -> new ListOption<Integer>(
-                                    "",
-                                    val,
-                                    getter,
-                                    setter,
-                                    () -> 0,
-                                    (vals, setters, getters) -> new IntegerOption(
-                                            "",
-                                            vals,
-                                            0, 100,
-                                            getters,
-                                            setters
-                                    )
-                            )
-                    ),
-                    new ListOption<Boolean>(
-                            "Список Булевых",
-                            List.of(true, false),
-                            () -> ConfigManager.get().booleanListTest,
-                            v -> ConfigManager.get().booleanListTest = v,
-
-                            () -> false,
-
-                            (val, setter, getter) -> new BooleanOption("", val, getter, setter)
+                                    vals,
+                                    false,
+                                    getters,
+                                    setters,
+                                    ""
+                            ),
+                            "cdib.config.colorlist.description"
                     ),
                     new ColorOption(
-                            "Тестовый цвет",
-                            0xFFFFFFFF,
-                            true,
-                            () -> ConfigManager.get().colorTest,
-                            v -> ConfigManager.get().colorTest = v
+                            "Bundle Color",
+                            0xFF7087FF,
+                            false,
+                            () -> ConfigManager.get().bundleBarColor,
+                            v -> ConfigManager.get().bundleBarColor = v,
+                            ""
+                    ),
+                    new ColorOption(
+                            "Flicker Color",
+                            0xFFFF9898,
+                            false,
+                            () -> ConfigManager.get().twinklingDurabilityColor,
+                            v -> ConfigManager.get().twinklingDurabilityColor = v,
+                            ""
+                    ),
+                    new ColorOption(
+                            "Bundle Full Color",
+                            0xFFFF5555,
+                            false,
+                            () -> ConfigManager.get().fullBundleBarColor,
+                            v -> ConfigManager.get().fullBundleBarColor = v,
+                            ""
                     ),
                     new MapOption<Item, List<Integer>>(
-                            "Цвета полоски прочности определённых предметов",
-                            Map.of(Items.DIAMOND_AXE, List.of(Color.blue.getRGB(),Color.red.getRGB()),
-                                    Items.IRON_AXE, List.of(Color.white.getRGB(),Color.red.getRGB())),
+                            "Unique Durability Bar Colors",
+                            Map.of(Items.DIAMOND_AXE, List.of(0xFF32E8C9,Color.red.getRGB()),
+                                    Items.IRON_AXE, List.of(0xFFFCFCFC,Color.red.getRGB())),
                             () -> ConfigManager.get().itemCustomDurabilityColor.entrySet().stream()
                                     .collect(Collectors.toMap(
                                             entry -> Registries.ITEM.get(Identifier.tryParse(entry.getKey())),
@@ -132,13 +124,14 @@ public class ModMenuIntegrator implements ModMenuApi {
 
 
                             () -> Items.DIAMOND_CHESTPLATE,
-                            () -> List.of(Color.blue.getRGB(),Color.red.getRGB()),
+                            () -> List.of(0xFF32E8C9,Color.red.getRGB()),
 
                             (keyVal, keySetter, keyGetter) -> new ItemOption(
                                     "",
                                     keyVal,
                                     keyGetter,
-                                    keySetter
+                                    keySetter,
+                                    ""
                             ),
 
                             (valVal, valSetter, valGetter) -> new ListOption<Integer>(
@@ -152,9 +145,12 @@ public class ModMenuIntegrator implements ModMenuApi {
                                             vals,
                                             false,
                                             getters,
-                                            setters
-                                    )
-                            )
+                                            setters,
+                                            ""
+                                    ),
+                                    ""
+                            ),
+                            ""
                     )
             ));
         };

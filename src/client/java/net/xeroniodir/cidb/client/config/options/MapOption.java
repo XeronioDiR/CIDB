@@ -31,8 +31,9 @@ public class MapOption<K, V> extends Option<Map<K, V>> {
                      Supplier<K> defaultKeySupplier,
                      Supplier<V> defaultValueSupplier,
                      TriFunction<K, Consumer<K>, Supplier<K>, Option<K>> keyOptionFactory,
-                     TriFunction<V, Consumer<V>, Supplier<V>, Option<V>> valueOptionFactory) {
-        super(title, defaultValue, getter, setter);
+                     TriFunction<V, Consumer<V>, Supplier<V>, Option<V>> valueOptionFactory,
+                     String description) {
+        super(title, defaultValue, getter, setter,description);
         this.defaultKeySupplier = defaultKeySupplier;
         this.defaultValueSupplier = defaultValueSupplier;
         this.keyOptionFactory = keyOptionFactory;

@@ -12,8 +12,8 @@ public class DoubleOption extends Option<Double> {
     private final double min;
     private final double max;
 
-    public DoubleOption(String title, double defaultValue, double min, double max, Supplier<Double> getter, Consumer<Double> setter) {
-        super(title, defaultValue, getter, setter);
+    public DoubleOption(String title, double defaultValue, double min, double max, Supplier<Double> getter, Consumer<Double> setter, String d) {
+        super(title, defaultValue, getter, setter, d);
         this.min = min;
         this.max = max;
     }

@@ -12,8 +12,8 @@ public class IntegerOption extends Option<Integer> {
     private final int min;
     private final int max;
 
-    public IntegerOption(String title, int defaultValue, int min, int max, Supplier<Integer> getter, Consumer<Integer> setter) {
-        super(title, defaultValue, getter, setter);
+    public IntegerOption(String title, int defaultValue, int min, int max, Supplier<Integer> getter, Consumer<Integer> setter, String description) {
+        super(title, defaultValue, getter, setter, description);
         this.min = min;
         this.max = max;
     }

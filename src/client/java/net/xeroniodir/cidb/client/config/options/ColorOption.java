@@ -11,8 +11,8 @@ public class ColorOption extends Option<Integer> {
 
     public final boolean hasAlpha;
 
-    public ColorOption(String title, Integer defaultValue, boolean hasAlpha, Supplier<Integer> getter, Consumer<Integer> setter) {
-        super(title, defaultValue, getter, setter);
+    public ColorOption(String title, Integer defaultValue, boolean hasAlpha, Supplier<Integer> getter, Consumer<Integer> setter, String description) {
+        super(title, defaultValue, getter, setter, description);
         this.hasAlpha = hasAlpha;
     }
 

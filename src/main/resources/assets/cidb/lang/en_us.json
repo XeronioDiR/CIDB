@@ -1,5 +1,5 @@
 {
-  "cdib.config.colorlist.description": "A list of colors that smoothly transition according to item durability. These colors define the gradient of the durability bar.\nP.S. transparency doesn't affect anything. It's here for prevent game from crashing.",
+  "cdib.config.colorlist.description": "A list of colors that smoothly transition according to item durability. \nThese colors define the gradient of the durability bar.",
   "cdib.config.twinklingdurabilitycolor.description": "The color used for the flicker effect when the item's durability reaches the critical threshold.",
   "cdib.config.durabilitytwinkling.description": "If enabled, the durability bar will flicker when the item is at critical durability",
   "cdib.config.durabilitybarincreaseoncritical.description": "If enabled, the durability bar temporarily rises to full length while at critical durability. \nMeanwhile when durability is not critical, bar will reduce faster (not durability).",
@@ -22,5 +22,10 @@
   "cdib.config.durabilitytwinklingspeed.name": "Durability Flickering Speed",
   "cdib.config.durabilitybarstyle.name": "Durability Bar Style",
   "cdib.config.bundlebarcolor.name": "Bundle Bar Color",
-  "cdib.config.fullbundlebarcolor.name": "Full Bundle Bar Color"
+  "cdib.config.fullbundlebarcolor.name": "Full Bundle Bar Color",
+  "cidb.cconfig.cancel": "Cancel",
+  "cidb.cconfig.exit": "Exit",
+  "cidb.cconfig.save": "Save",
+  "cidb.cconfig.add": "Add",
+  "cidb.cconfig.reset": "Reset"
 }

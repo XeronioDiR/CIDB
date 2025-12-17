@@ -12,8 +12,8 @@ public class FloatOption extends Option<Float> {
     private final float min;
     private final float max;
 
-    public FloatOption(String title, float defaultValue, float min, float max, Supplier<Float> getter, Consumer<Float> setter) {
-        super(title, defaultValue, getter, setter);
+    public FloatOption(String title, float defaultValue, float min, float max, Supplier<Float> getter, Consumer<Float> setter, String d) {
+        super(title, defaultValue, getter, setter, d);
         this.min = min;
         this.max = max;
     }

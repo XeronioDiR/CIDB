@@ -16,8 +16,8 @@ import java.util.function.Supplier;
 
 public class ItemOption extends Option<Item> {
 
-    public ItemOption(String title, Item defaultValue, Supplier<Item> getter, Consumer<Item> setter) {
-        super(title, defaultValue, getter, setter);
+    public ItemOption(String title, Item defaultValue, Supplier<Item> getter, Consumer<Item> setter,String description) {
+        super(title, defaultValue, getter, setter,description);
     }
 
     @Override

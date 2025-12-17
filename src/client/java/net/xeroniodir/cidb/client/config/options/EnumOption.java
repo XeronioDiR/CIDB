@@ -8,22 +8,27 @@ import net.xeroniodir.cidb.client.config.Option;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class BooleanOption extends Option<Boolean> {
+public class EnumOption<E extends Enum<E>> extends Option<E> {
 
-    public BooleanOption(String title, boolean defaultValue, Supplier<Boolean> getter, Consumer<Boolean> setter, String description) {
-        super(title, defaultValue, getter, setter,description);
+    private final E[] enumValues;
+
+    public EnumOption(String title, E defaultValue, Supplier<E> getter, Consumer<E> setter, Class<E> enumClass, String d) {
+        super(title, defaultValue, getter, setter, d);
+        this.enumValues = enumClass.getEnumConstants();
     }
 
     @Override
     public ClickableWidget createWidget(int x, int y, int width) {
         return ButtonWidget.builder(getText(), button -> {
-            boolean newValue = !getter.get();
-            setter.accept(newValue);
+            E currentValue = getter.get();
+            int nextIndex = (currentValue.ordinal() + 1) % enumValues.length;
+            E nextValue = enumValues[nextIndex];
+            setter.accept(nextValue);
             button.setMessage(getText());
         }).dimensions(x, y, width, 20).build();
     }
 
     private Text getText() {
-        return Text.literal(getter.get() ? "§aON" : "§cOFF"); // Зеленый ON, Красный OFF
+        return Text.literal(getter.get().name());
     }
 }

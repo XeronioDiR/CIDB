@@ -42,7 +42,7 @@ public class MapConfigScreen extends Screen {
         mapList = new MapEntryList(this.client, this.width, this.height - 60, 32, 25);
         this.addDrawableChild(mapList);
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Добавить"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.add"), b -> {
             Map.Entry<Object, Object> newEntry = new AbstractMap.SimpleEntry<>(
                     option.createNewKeyDefault(),
                     option.createNewValueDefault()
@@ -51,7 +51,7 @@ public class MapConfigScreen extends Screen {
             this.client.setScreen(new MapConfigScreen(parent, option, workingList));
         }).dimensions(this.width / 2 - 135, this.height - 26, 75, 20).build());
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Сохранить"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.save"), b -> {
             Map<Object, Object> result = new LinkedHashMap<>();
             for (Map.Entry<Object, Object> entry : workingList) {
                 result.put(entry.getKey(), entry.getValue());
@@ -60,7 +60,7 @@ public class MapConfigScreen extends Screen {
             this.client.setScreen(parent);
         }).dimensions(this.width / 2 - 37, this.height - 26, 75, 20).build());
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Отмена"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.cancel"), b -> {
             this.client.setScreen(parent);
         }).dimensions(this.width / 2 + 61, this.height - 26, 75, 20).build());
     }

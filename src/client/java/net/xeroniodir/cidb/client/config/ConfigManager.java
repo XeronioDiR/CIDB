@@ -21,7 +21,7 @@ public class ConfigManager {
     }
 
     public static ModConfig getLoaded() {
-        return current;
+        return loaded;
     }
 
     public static void load() {

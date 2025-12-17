@@ -46,17 +46,17 @@ public class ListConfigScreen extends Screen {
         optionList = new ListEntryList(this.client, this.width, this.height - 60, 32, 25);
         this.addDrawableChild(optionList);
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Добавить"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.add"), b -> {
             workingList.add(option.createNewItemDefault());
             this.client.setScreen(new ListConfigScreen(parent, option, workingList));
         }).dimensions(this.width / 2 - 135, this.height - 26, 75, 20).build());
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Сохранить"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.save"), b -> {
             (option.setter).accept(this.workingList);
             this.client.setScreen(parent);
         }).dimensions(this.width / 2 - 37, this.height - 26, 75, 20).build());
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Отмена"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.cancel"), b -> {
             this.client.setScreen(parent);
         }).dimensions(this.width / 2 + 61, this.height - 26, 75, 20).build());
     }

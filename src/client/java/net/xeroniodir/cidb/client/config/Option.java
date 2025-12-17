@@ -11,12 +11,14 @@ public abstract class Option<T> {
     public final T defaultValue;
     public final Supplier<T> getter;
     public final Consumer<T> setter;
+    public final String description;
 
-    public Option(String title, T defaultValue, Supplier<T> getter, Consumer<T> setter) {
+    public Option(String title, T defaultValue, Supplier<T> getter, Consumer<T> setter,String description) {
         this.title = title;
         this.defaultValue = defaultValue;
         this.getter = getter;
         this.setter = setter;
+        this.description = description;
     }
 
     public void reset() {
