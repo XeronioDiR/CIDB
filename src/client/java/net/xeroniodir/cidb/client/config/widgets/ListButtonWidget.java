@@ -11,12 +11,11 @@ public class ListButtonWidget extends ButtonWidget {
     private final ListOption<?> option;
 
     public ListButtonWidget(int x, int y, int width, int height, ListOption<Object> option) {
-        super(x, y, width, height, Text.literal("Редактировать (" + option.getter.get().size() + " элементов)"), button -> {
-            // При клике открываем вложенный экран
+        super(x, y, width, height, Text.literal(+ option.getter.get().size() + " элементов"), button -> {
             MinecraftClient client = MinecraftClient.getInstance();
             client.setScreen(new ListConfigScreen(client.currentScreen, option));
         }, (textSupplier) -> (MutableText)textSupplier.get());
         this.option = option;
-        this.setMessage(Text.literal("(" + option.getter.get().size() + " элементов)"));
+        this.setMessage(Text.literal(+ option.getter.get().size() + " элементов"));
     }
 }

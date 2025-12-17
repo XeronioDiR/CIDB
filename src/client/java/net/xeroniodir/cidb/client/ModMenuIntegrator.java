@@ -12,7 +12,10 @@ import net.xeroniodir.cidb.client.config.ConfigManager;
 import net.xeroniodir.cidb.client.config.ConfigScreen;
 import net.xeroniodir.cidb.client.config.options.*;
 
+import java.awt.*;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -37,21 +40,6 @@ public class ModMenuIntegrator implements ModMenuApi {
                             () -> ConfigManager.get().intSliderTest,
                             v -> ConfigManager.get().intSliderTest = v
                     ),
-                    new FloatOption(
-                            "Float Слайдер (0-100)",
-                            75.655f,
-                            0, 100,
-                            () -> ConfigManager.get().floatSliderTest,
-                            v -> ConfigManager.get().floatSliderTest = v
-                    )
-                    ,
-                    new DoubleOption(
-                            "Double Слайдер (0-100)",
-                            25.5,
-                            0, 100,
-                            () -> ConfigManager.get().doubleSliderTest,
-                            v -> ConfigManager.get().doubleSliderTest = v
-                    ),
                     new ItemOption(
                             "Выбранный предмет",
                             Items.OAK_LOG,
@@ -61,47 +49,42 @@ public class ModMenuIntegrator implements ModMenuApi {
                             },
                             (Item item) -> {
                                 Identifier id = Registries.ITEM.getId(item);
+
                                 ConfigManager.get().selectedItemId = id.toString();
                             }
                     ),
                     new ListOption<Integer>(
                             "Мой Список Чисел",
-                            List.of(10, 20), // Дефолт
+                            List.of(10, 20),
                             () -> ConfigManager.get().integerListTest,
                             v -> ConfigManager.get().integerListTest = v,
 
-                            // 1. Supplier: Какое значение создавать при нажатии "Добавить"?
                             () -> 0,
 
-                            // 2. Factory: Как создавать Option для каждого элемента?
-                            // val - текущее значение числа, setter - как сохранить изменение этого числа
                             (val, setter, getter) -> new IntegerOption(
-                                    "",  // Имя не нужно внутри списка
+                                    "",
                                     val,
                                     0, 100,
-                                    getter, // ПЕРЕДАЕМ НОВЫЙ ГЕТТЕР
+                                    getter,
                                     setter
                             )
                     ),
                     new ListOption<List<Integer>>(
                             "Мой Список Списков Чисел",
-                            List.of(List.of(10, 20), List.of(10, 20)), // Дефолт
+                            List.of(List.of(10, 20), List.of(10, 20)),
                             () -> ConfigManager.get().integerListList,
                             v -> ConfigManager.get().integerListList = v,
 
-                            // 1. Supplier: Какое значение создавать при нажатии "Добавить"?
                             () -> List.of(0),
 
-                            // 2. Factory: Как создавать Option для каждого элемента?
-                            // val - текущее значение числа, setter - как сохранить изменение этого числа
                             (val,setter, getter) -> new ListOption<Integer>(
-                                    "",  // Имя не нужно внутри списка
+                                    "",
                                     val,
                                     getter,
                                     setter,
                                     () -> 0,
                                     (vals, setters, getters) -> new IntegerOption(
-                                            "",  // Имя не нужно внутри списка
+                                            "",
                                             vals,
                                             0, 100,
                                             getters,
@@ -115,37 +98,62 @@ public class ModMenuIntegrator implements ModMenuApi {
                             () -> ConfigManager.get().booleanListTest,
                             v -> ConfigManager.get().booleanListTest = v,
 
-                            // Supplier
                             () -> false,
 
-                            // Factory: Используем BooleanOption (предположим, он у тебя есть)
                             (val, setter, getter) -> new BooleanOption("", val, getter, setter)
                     ),
-                    new ListOption<Item>(
-                            "Список Предметов",
-                            List.of(Items.APPLE, Items.DIAMOND), // Дефолт (список Items)
-
-                            // 1. ГЕТТЕР: Превращаем List<String> из конфига в List<Item> для GUI
-                            () -> ConfigManager.get().selectedItemsList.stream()
-                                    .map(id -> Registries.ITEM.get(Identifier.of(id))) // String -> Item
-                                    .collect(Collectors.toList()),
-
-                            // 2. СЕТТЕР: Превращаем List<Item> из GUI обратно в List<String> для конфига
-                            (items) -> {
-                                ConfigManager.get().selectedItemsList = items.stream()
-                                        .map(item -> Registries.ITEM.getId(item).toString()) // Item -> String
-                                        .collect(Collectors.toList());
+                    new ColorOption(
+                            "Тестовый цвет",
+                            0xFFFFFFFF,
+                            true,
+                            () -> ConfigManager.get().colorTest,
+                            v -> ConfigManager.get().colorTest = v
+                    ),
+                    new MapOption<Item, List<Integer>>(
+                            "Цвета полоски прочности определённых предметов",
+                            Map.of(Items.DIAMOND_AXE, List.of(Color.blue.getRGB(),Color.red.getRGB()),
+                                    Items.IRON_AXE, List.of(Color.white.getRGB(),Color.red.getRGB())),
+                            () -> ConfigManager.get().itemCustomDurabilityColor.entrySet().stream()
+                                    .collect(Collectors.toMap(
+                                            entry -> Registries.ITEM.get(Identifier.tryParse(entry.getKey())),
+                                            Map.Entry::getValue,
+                                            (oldVal, newVal) -> newVal,
+                                            LinkedHashMap::new
+                                    )),
+                            (guiMap) -> {
+                                ConfigManager.get().itemCustomDurabilityColor = guiMap.entrySet().stream()
+                                        .collect(Collectors.toMap(
+                                                entry -> Registries.ITEM.getId(entry.getKey()).toString(),
+                                                Map.Entry::getValue,
+                                                (oldVal, newVal) -> newVal,
+                                                LinkedHashMap::new
+                                        ));
                             },
 
-                            // 3. Supplier: Что добавляем при нажатии кнопки "Добавить"?
-                            () -> Items.APPLE,
 
-                            // 4. Factory: Теперь T - это Item, и всё совпадает!
-                            (itemVal, itemSetter, itemGetter) -> new ItemOption(
+                            () -> Items.DIAMOND_CHESTPLATE,
+                            () -> List.of(Color.blue.getRGB(),Color.red.getRGB()),
+
+                            (keyVal, keySetter, keyGetter) -> new ItemOption(
                                     "",
-                                    itemVal,
-                                    () -> itemVal,
-                                    itemSetter
+                                    keyVal,
+                                    keyGetter,
+                                    keySetter
+                            ),
+
+                            (valVal, valSetter, valGetter) -> new ListOption<Integer>(
+                                    "",
+                                    valVal,
+                                    valGetter,
+                                    valSetter,
+                                    Color.blue::getRGB,
+                                    (vals, setters, getters) -> new ColorOption(
+                                            "",
+                                            vals,
+                                            false,
+                                            getters,
+                                            setters
+                                    )
                             )
                     )
             ));

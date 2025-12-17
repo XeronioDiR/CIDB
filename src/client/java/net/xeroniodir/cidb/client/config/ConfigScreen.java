@@ -19,6 +19,7 @@ public class ConfigScreen extends Screen {
     private final Screen parent;
     private final List<Option<?>> options;
     private ConfigOptionList optionList;
+    private ButtonWidget cancelButton;
 
     public ConfigScreen(Screen parent, List<Option<?>> options) {
         super(Text.literal("Настройки CIDB"));
@@ -29,7 +30,7 @@ public class ConfigScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        optionList = new ConfigOptionList(this.client, this.width, this.height - 60, 32, 25);
+            optionList = new ConfigOptionList(this.client, this.width, this.height - 60, 32, 25);
 
         for (Option<?> option : options) {
             optionList.addOption(option);
@@ -37,21 +38,32 @@ public class ConfigScreen extends Screen {
         this.addDrawableChild(optionList);
         int buttonY = this.height - 26;
         int buttonHeight = 20;
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Сохранить и Выйти"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.literal("Сохранить"), b -> {
             ConfigManager.save();
-            this.client.setScreen(parent);
-        }).dimensions(this.width / 2 - 75, buttonY, 150, buttonHeight).build());
+
+        }).dimensions(this.width / 2 - 37, buttonY, 75, buttonHeight).build());
         this.addDrawableChild(ButtonWidget.builder(Text.literal("Сброс всего"), b -> {
             for (Option<?> option : options) {
                 option.reset();
             }
             this.client.setScreen(new ConfigScreen(parent, options));
-        }).dimensions(10, buttonY, 80, buttonHeight).build());
+        }).dimensions(this.width / 2 - 135, buttonY, 75, buttonHeight).build());
+        cancelButton = ButtonWidget.builder(Text.literal(ConfigManager.isEqual() ? "Выйти" : "Отмена"), b -> {
+            if(ConfigManager.isEqual()){
+                this.client.setScreen(parent);
+            }
+            else{
+                ConfigManager.load();
+                this.client.setScreen(this);
+            }
+        }).dimensions(this.width / 2 + 61, this.height - 26, 75, 20).build();
+        this.addDrawableChild(cancelButton);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
+        cancelButton.setMessage(Text.literal(ConfigManager.isEqual() ? "Выйти" : "Отмена"));
 
         TextWidget titleText = new TextWidget(this.title,client.textRenderer).alignRight().setTextColor(0xFFFFFF);
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
@@ -77,7 +89,7 @@ public class ConfigScreen extends Screen {
 
         @Override
         public int getRowWidth() {
-            return Math.min(400, width - 20); // Используем почти всю ширину экрана
+            return Math.min(width - 100, width / 2 + 370); // Используем почти всю ширину экрана
         }
 
         protected int getScrollbarPositionX() {

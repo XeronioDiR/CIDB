@@ -13,10 +13,8 @@ import java.util.function.Supplier;
 @SuppressWarnings("unchecked")
 public class ListOption<T> extends Option<List<T>> {
 
-    // Фабрика: Принимает (Значение, Сеттер) и возвращает Option<T>
     public final TriFunction<T, Consumer<T>, Supplier<T>, Option<T>> elementOptionFactory; // <-- TriFunction
 
-    // Поставщик: Создает дефолтное значение для нового элемента
     private final Supplier<T> defaultElementSupplier;
 
     public ListOption(String title,
@@ -35,7 +33,6 @@ public class ListOption<T> extends Option<List<T>> {
         R apply(A a, B b, C c);
     }
 
-    // Этот метод вызывает экран списка, чтобы создать Option для конкретной строки
     public Option<T> createOptionForElement(T value, Consumer<T> setter, Supplier<T> getter) {
         return elementOptionFactory.apply(value, setter, getter);
     }
@@ -46,7 +43,6 @@ public class ListOption<T> extends Option<List<T>> {
 
     @Override
     public ClickableWidget createWidget(int x, int y, int width) {
-        // Опасное приведение типов, необходимое для стирания типов Java
         return new ListButtonWidget(x, y, width, 20, (ListOption<Object>) this);
     }
 }

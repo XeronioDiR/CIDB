@@ -1,5 +1,5 @@
-Remove ConfigScreenBuilder - not used anymore (used to create screen)
-Make Tooltip when hovering Option
-Remake Item Selection in ItemListWidget
-More Options - Block(?), Entities(?), Map, Map<?,List<>>
+Remove ConfigScreenBuilder - not used anymore (used to create screen) !!!!
+Make Tooltip when hovering Option !!
+Remake Item Selection in ItemListWidget  ?
+More Options - Block(?), Entities(?) ???
 /Probably should make config lib for this mod

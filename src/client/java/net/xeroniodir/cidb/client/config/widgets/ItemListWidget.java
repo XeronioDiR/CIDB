@@ -15,29 +15,24 @@ import net.xeroniodir.cidb.client.config.options.ItemOption;
 import java.util.ArrayList;
 import java.util.List;
 
-// Список, отображающий предметы в виде сетки
 public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry> {
     private final ItemOption option;
     private final CreativePickerScreen parentScreen;
 
-    // Константы для сетки
-    public static final int ITEM_SIZE = 18; // 16x16 + 2px padding
-    private static final int ROW_HEIGHT = 25; // Высота строки чуть больше размера иконки
+    public static final int ITEM_SIZE = 18;
+    private static final int ROW_HEIGHT = 25;
 
-    // Определяем количество предметов в строке на основе ширины виджета
     public final int itemsPerRow;
-    private final int itemsMarginLeft; // Отступ слева для центрирования сетки
+    private final int itemsMarginLeft;
 
     public ItemListWidget(MinecraftClient client, int width, int height, int top, int bottom, ItemOption option, CreativePickerScreen parentScreen) {
         super(client, width, height, top, ROW_HEIGHT);
         this.option = option;
         this.parentScreen = parentScreen;
 
-        // Расчет сетки
         this.itemsPerRow = Math.max(1, (this.width - 20) / ITEM_SIZE);
         this.itemsMarginLeft = (this.width - (this.itemsPerRow * ITEM_SIZE)) / 2;
 
-        // Группируем предметы в строки
         List<Item> allItems = Registries.ITEM.stream()
                 .filter(item -> item != Items.AIR)
                 .toList();
@@ -50,7 +45,7 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
                 currentItems.clear();
             }
         }
-        // Добавляем оставшиеся предметы (если строка не заполнилась)
+
         if (!currentItems.isEmpty()) {
             this.addEntry(new ItemRowEntry(currentItems));
         }
@@ -58,7 +53,7 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
 
     @Override
     public int getRowWidth() {
-        return this.width; // Используем всю ширину
+        return this.width;
     }
 
     protected int getScrollbarPositionX() {
