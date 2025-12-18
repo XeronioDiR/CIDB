@@ -11,7 +11,7 @@ import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.text.Text;
-import net.xeroniodir.cidb.client.config.Option; // Импорт твоего класса Option
+import net.xeroniodir.cidb.client.config.screens.DescriptionScreen;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +31,7 @@ public class ConfigScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-            optionList = new ConfigOptionList(this.client, this.width, this.height - 60, 32, 25);
+        optionList = new ConfigOptionList(this.client, this.width, this.height - 60, 32, 25);
 
         for (Option<?> option : options) {
             optionList.addOption(option);
@@ -41,7 +41,6 @@ public class ConfigScreen extends Screen {
         int buttonHeight = 20;
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.save"), b -> {
             ConfigManager.save();
-
         }).dimensions(this.width / 2 - 37, buttonY, 75, buttonHeight).build());
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.reset"), b -> {
             for (Option<?> option : options) {
@@ -50,10 +49,9 @@ public class ConfigScreen extends Screen {
             this.client.setScreen(new ConfigScreen(parent, options));
         }).dimensions(this.width / 2 - 135, buttonY, 75, buttonHeight).build());
         cancelButton = ButtonWidget.builder(Text.translatable(ConfigManager.isEqual() ? "cidb.cconfig.exit" : "cidb.cconfig.cancel"), b -> {
-            if(ConfigManager.isEqual()){
+            if (ConfigManager.isEqual()) {
                 this.client.setScreen(parent);
-            }
-            else{
+            } else {
                 ConfigManager.load();
                 this.client.setScreen(this);
             }
@@ -66,10 +64,10 @@ public class ConfigScreen extends Screen {
         super.render(context, mouseX, mouseY, delta);
         cancelButton.setMessage(Text.translatable(ConfigManager.isEqual() ? "cidb.cconfig.exit" : "cidb.cconfig.cancel"));
 
-        TextWidget titleText = new TextWidget(this.title,client.textRenderer).alignRight().setTextColor(0xFFFFFF);
+        TextWidget titleText = new TextWidget(this.title, client.textRenderer).alignRight().setTextColor(0xFFFFFF);
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
         titleText.setY(10);
-        titleText.renderWidget(context,mouseX,mouseY,delta);
+        titleText.renderWidget(context, mouseX, mouseY, delta);
     }
 
     @Override
@@ -90,7 +88,7 @@ public class ConfigScreen extends Screen {
 
         @Override
         public int getRowWidth() {
-            return Math.min(width - 100, width / 2 + 370); // Используем почти всю ширину экрана
+            return Math.min(width - 100, width / 2 + 370);
         }
 
         protected int getScrollbarPositionX() {
@@ -98,40 +96,46 @@ public class ConfigScreen extends Screen {
         }
 
         @Override
-        protected void appendClickableNarrations(NarrationMessageBuilder builder) {}
+        protected void appendClickableNarrations(NarrationMessageBuilder builder) {
+        }
 
         public class OptionEntry extends EntryListWidget.Entry<OptionEntry> {
             private final Option<?> option;
             private final ClickableWidget valueWidget;
             private final ButtonWidget resetButton;
+            private final ButtonWidget descriptionButton;
 
             private static final int WIDGET_WIDTH = 100;
-            private static final int RESET_BTN_WIDTH = 20;
+            private static final int BUTTON_WIDTH = 20;
             private static final int SPACING = 5;
 
             public OptionEntry(Option<?> option) {
                 this.option = option;
-
                 this.valueWidget = option.createWidget(0, 0, WIDGET_WIDTH);
-
                 this.resetButton = ButtonWidget.builder(Text.literal("⟳"), b -> {
                     option.reset();
                     client.setScreen(new ConfigScreen(ConfigScreen.this.parent, ConfigScreen.this.options));
-                }).dimensions(0, 0, RESET_BTN_WIDTH, 20).build();
+                }).dimensions(0, 0, BUTTON_WIDTH, 20).build();
+
+                this.descriptionButton = ButtonWidget.builder(Text.literal("i"), b -> {
+                    client.setScreen(new DescriptionScreen(ConfigScreen.this, Text.translatable(option.title), Text.translatable(option.description)));
+                }).dimensions(0, 0, BUTTON_WIDTH, 20).build();
+                this.descriptionButton.active = !Objects.equals(option.description, "");
             }
 
             public List<? extends Element> children() {
-                return List.of(valueWidget, resetButton);
+                return List.of(valueWidget, resetButton, descriptionButton);
             }
 
             public List<? extends Selectable> selectableChildren() {
-                return List.of(valueWidget, resetButton);
+                return List.of(valueWidget, resetButton, descriptionButton);
             }
 
             @Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 if (valueWidget.mouseClicked(mouseX, mouseY, button)) return true;
                 if (resetButton.mouseClicked(mouseX, mouseY, button)) return true;
+                if (descriptionButton.mouseClicked(mouseX, mouseY, button)) return true;
                 return super.mouseClicked(mouseX, mouseY, button);
             }
 
@@ -139,6 +143,7 @@ public class ConfigScreen extends Screen {
             public boolean mouseReleased(double mouseX, double mouseY, int button) {
                 if (valueWidget.mouseReleased(mouseX, mouseY, button)) return true;
                 if (resetButton.mouseReleased(mouseX, mouseY, button)) return true;
+                if (descriptionButton.mouseReleased(mouseX, mouseY, button)) return true;
                 return super.mouseReleased(mouseX, mouseY, button);
             }
 
@@ -150,23 +155,38 @@ public class ConfigScreen extends Screen {
 
             @Override
             public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
-                TextWidget titleText = new TextWidget(Text.translatable(option.title),client.textRenderer).setTextColor(0xFFFFFF);
-                titleText.setX(x + 5);
-                titleText.setY(y + 6);
-                titleText.renderWidget(context,mouseX,mouseY,delta);
+                int currentX = x + entryWidth;
 
-                int resetX = x + entryWidth - RESET_BTN_WIDTH - SPACING;
-                resetButton.setX(resetX);
+                // Description Button
+                currentX -= (BUTTON_WIDTH + SPACING);
+                descriptionButton.setX(currentX);
+                descriptionButton.setY(y);
+                descriptionButton.render(context, mouseX, mouseY, delta);
+
+                // Reset Button
+                currentX -= (BUTTON_WIDTH + SPACING);
+                resetButton.setX(currentX);
                 resetButton.setY(y);
                 resetButton.render(context, mouseX, mouseY, delta);
 
-                int widgetX = resetX - WIDGET_WIDTH - SPACING;
-                valueWidget.setX(widgetX);
+                // Value Widget
+                currentX -= (WIDGET_WIDTH + SPACING);
+                valueWidget.setX(currentX);
                 valueWidget.setY(y);
                 valueWidget.render(context, mouseX, mouseY, delta);
 
-                if (valueWidget.isHovered() && !Objects.equals(option.description, "")) {
-                    context.drawTooltip(Text.translatable(option.description), mouseX, mouseY);
+                // Title
+                int titleWidth = currentX - x - SPACING;
+                Text fullTitle = Text.translatable(option.title);
+                Text trimmedTitle = Text.literal(client.textRenderer.trimToWidth(fullTitle, titleWidth).getString());
+
+                TextWidget titleText = new TextWidget(trimmedTitle, client.textRenderer).alignRight().setTextColor(0xFFFFFF);
+                titleText.setX(x + 5);
+                titleText.setY(y + 6);
+                titleText.renderWidget(context, mouseX, mouseY, delta);
+
+                if (descriptionButton.isMouseOver(mouseX,mouseY)) {
+                    context.drawTooltip(client.textRenderer, fullTitle, mouseX, mouseY);
                 }
             }
         }

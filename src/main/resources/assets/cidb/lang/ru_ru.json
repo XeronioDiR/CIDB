@@ -11,8 +11,8 @@
 
   "cdib.barstyles.horizontal": "Горизонтальный",
   "cdib.barstyles.vertical": "Вертикальный",
-  "cdib.barstyles.textpercent": "Процент",
-  "cdib.barstyles.textdurability": "Абсолютный",
+  "cdib.barstyles.percent": "Процент",
+  "cdib.barstyles.absolute": "Абсолютный",
 
   "cdib.config.colorlist.name": "Цвета прочности",
   "cdib.config.twinklingdurabilitycolor.name": "Цвет мерцания прочности",
@@ -25,7 +25,13 @@
   "cdib.config.fullbundlebarcolor.name": "Цвет полоски Полного Мешка",
   "cidb.cconfig.cancel": "Отмена",
   "cidb.cconfig.exit": "Выйти",
+  "cidb.cconfig.back": "Назад",
   "cidb.cconfig.save": "Сохранить",
   "cidb.cconfig.add": "Добавить",
-  "cidb.cconfig.reset": "Сброс"
+  "cidb.cconfig.reset": "Сброс",
+  "cidb.cconfig.elements": "Элементов",
+  "cidb.cconfig.pairs": "Пар",
+
+  "cidb.config.uniqueitemcolorlist.name": "Уникальный Список Цветов Предмета",
+  "cidb.config.uniqueitemcolorlist.desc": "Карта предметов с списками цветов. \nЕсли предмет находится в карте, то его полоска прочности будет использоватьь цвета, привязанных к предмету в карте, вместо стандартных."
 }

@@ -33,7 +33,7 @@ public class ListConfigScreen extends Screen {
 
     // Конструктор 2: Вызывается при обновлении экрана (Add/Remove) - принимает уже измененный список
     private ListConfigScreen(Screen parent, ListOption<Object> option, List<Object> currentList) {
-        super(Text.literal(option.title));
+        super(Text.translatable(option.title));
         this.parent = parent;
         this.option = option;
         this.workingList = currentList;

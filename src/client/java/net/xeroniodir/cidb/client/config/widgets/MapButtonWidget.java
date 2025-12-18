@@ -17,6 +17,6 @@ public class MapButtonWidget extends ButtonWidget {
     }
 
     private static Text getText(MapOption<?, ?> option) {
-        return Text.literal(option.getter.get().size() + " пар");
+        return Text.literal(option.getter.get().size() + " ").append(Text.translatable("cidb.cconfig.pairs"));
     }
 }

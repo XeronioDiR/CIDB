@@ -24,42 +24,42 @@ public class ModMenuIntegrator implements ModMenuApi {
 
             return new ConfigScreen(parent, List.of(
                     new BooleanOption(
-                            "Durability Flickering",
+                            "cdib.config.durabilitytwinkling.name",
                             true,
                             () -> ConfigManager.get().durabilityTwinkling,
                             v -> ConfigManager.get().durabilityTwinkling = v,
-                            ""
+                            "cdib.config.durabilitytwinkling.description"
                     ),
                     new BooleanOption(
-                            "Increasing Durability bar on Critical",
+                            "cdib.config.durabilitybarincreaseoncritical.name",
                             true,
                             () -> ConfigManager.get().durabilityBarLengthOnCritical,
                             v -> ConfigManager.get().durabilityBarLengthOnCritical = v,
-                            ""
+                            "cdib.config.durabilitybarincreaseoncritical.description"
                     ),
                     new EnumOption<DurabilityBarStyleEnum>(
-                            "Durability Bar Style",
+                            "cdib.config.durabilitybarstyle.name",
                             DurabilityBarStyleEnum.HORIZONTAL,
                             () -> ConfigManager.get().durabilityBarStyle,
                             v -> ConfigManager.get().durabilityBarStyle = v,
                             DurabilityBarStyleEnum.class,
-                            ""
+                            "cdib.config.durabilitybarstyle.description"
                     ),
                     new DoubleOption(
-                            "Flicker Speed",
+                            "cdib.config.durabilitytwinklingspeed.name",
                             1,
                             0.1, 20.0,
                             () -> ConfigManager.get().twinklingSpeed,
                             v -> ConfigManager.get().twinklingSpeed = v,
-                            ""
+                            "cdib.config.durabilitytwinklingspeed.description"
                     ),
                     new IntegerOption(
-                            "Critical Durability Percent",
+                            "cdib.config.criticalpercent.name",
                             25,
                             0, 100,
                             () -> ConfigManager.get().durabiltiyProcent,
                             v -> ConfigManager.get().durabiltiyProcent = v,
-                            ""
+                            "cdib.config.criticalpercent.description"
                     ),
                     new ListOption<Integer>(
                             "cdib.config.colorlist.name",
@@ -78,31 +78,31 @@ public class ModMenuIntegrator implements ModMenuApi {
                             "cdib.config.colorlist.description"
                     ),
                     new ColorOption(
-                            "Bundle Color",
+                            "cdib.config.bundlebarcolor.name",
                             0xFF7087FF,
                             false,
                             () -> ConfigManager.get().bundleBarColor,
                             v -> ConfigManager.get().bundleBarColor = v,
-                            ""
+                            "cdib.config.bundlebarcolor.description"
                     ),
                     new ColorOption(
-                            "Flicker Color",
+                            "cdib.config.twinklingdurabilitycolor.name",
                             0xFFFF9898,
                             false,
                             () -> ConfigManager.get().twinklingDurabilityColor,
                             v -> ConfigManager.get().twinklingDurabilityColor = v,
-                            ""
+                            "cdib.config.twinklingdurabilitycolor.description"
                     ),
                     new ColorOption(
-                            "Bundle Full Color",
+                            "cdib.config.fullbundlebarcolor.name",
                             0xFFFF5555,
                             false,
                             () -> ConfigManager.get().fullBundleBarColor,
                             v -> ConfigManager.get().fullBundleBarColor = v,
-                            ""
+                            "cdib.config.fullbundlebarcolor.description"
                     ),
                     new MapOption<Item, List<Integer>>(
-                            "Unique Durability Bar Colors",
+                            "cidb.config.uniqueitemcolorlist.name",
                             Map.of(Items.DIAMOND_AXE, List.of(0xFF32E8C9,Color.red.getRGB()),
                                     Items.IRON_AXE, List.of(0xFFFCFCFC,Color.red.getRGB())),
                             () -> ConfigManager.get().itemCustomDurabilityColor.entrySet().stream()
@@ -150,7 +150,7 @@ public class ModMenuIntegrator implements ModMenuApi {
                                     ),
                                     ""
                             ),
-                            ""
+                            "cidb.config.uniqueitemcolorlist.desc"
                     )
             ));
         };

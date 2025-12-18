@@ -16,6 +16,6 @@ public class ListButtonWidget extends ButtonWidget {
             client.setScreen(new ListConfigScreen(client.currentScreen, option));
         }, (textSupplier) -> (MutableText)textSupplier.get());
         this.option = option;
-        this.setMessage(Text.literal(+ option.getter.get().size() + " элементов"));
+        this.setMessage(Text.literal(+ option.getter.get().size() + " ").append(Text.translatable("cidb.cconfig.elements")));
     }
 }

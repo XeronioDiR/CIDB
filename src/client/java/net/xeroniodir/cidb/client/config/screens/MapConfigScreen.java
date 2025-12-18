@@ -30,7 +30,7 @@ public class MapConfigScreen extends Screen {
     }
 
     private MapConfigScreen(Screen parent, MapOption<Object, Object> option, List<Map.Entry<Object, Object>> currentList) {
-        super(Text.literal(option.title));
+        super(Text.translatable(option.title));
         this.parent = parent;
         this.option = option;
         this.workingList = currentList;

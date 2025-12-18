@@ -43,7 +43,7 @@ public class ItemDurabilityDrawMixin {
                 /// reverted from horizontal, decreasing from up to down
             }
         }
-        if (ConfigManager.getLoaded().durabilityBarStyle == DurabilityBarStyleEnum.PROCENT){
+        if (ConfigManager.getLoaded().durabilityBarStyle == DurabilityBarStyleEnum.PERCENT){
             if (stack.isItemBarVisible()) {
                 Matrix3x2fStack matrices = ctx.getMatrices();
                 matrices.pushMatrix();

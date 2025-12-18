@@ -11,8 +11,8 @@
 
   "cdib.barstyles.horizontal": "Horizontal",
   "cdib.barstyles.vertical": "Vertical",
-  "cdib.barstyles.textpercent": "Percents",
-  "cdib.barstyles.textdurability": "Absolute",
+  "cdib.barstyles.percent": "Percents",
+  "cdib.barstyles.absolute": "Absolute",
 
   "cdib.config.colorlist.name": "Durability Colors",
   "cdib.config.twinklingdurabilitycolor.name": "Durability Flickering Color",
@@ -25,7 +25,13 @@
   "cdib.config.fullbundlebarcolor.name": "Full Bundle Bar Color",
   "cidb.cconfig.cancel": "Cancel",
   "cidb.cconfig.exit": "Exit",
+  "cidb.cconfig.back": "Back",
   "cidb.cconfig.save": "Save",
   "cidb.cconfig.add": "Add",
-  "cidb.cconfig.reset": "Reset"
+  "cidb.cconfig.reset": "Reset",
+  "cidb.cconfig.elements": "Elements",
+  "cidb.cconfig.pairs": "Pairs",
+
+  "cidb.config.uniqueitemcolorlist.name": "Unique Item Color List",
+  "cidb.config.uniqueitemcolorlist.desc": "An item map with color lists. If an item is on the map, its durability bar will use colors attached to item in map instead of the default ones."
 }
