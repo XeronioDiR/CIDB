@@ -11,7 +11,6 @@ import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.text.Text;
-import net.xeroniodir.cidb.client.config.ConfigManager;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.options.MapOption;
 
@@ -69,7 +68,7 @@ public class MapConfigScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
 
-        TextWidget titleText = new TextWidget(this.title,client.textRenderer).alignRight().setTextColor(0xFFFFFF);
+        TextWidget titleText = new TextWidget(this.title,client.textRenderer).setTextColor(0xFFFFFF);
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
         titleText.setY(10);
         titleText.renderWidget(context,mouseX,mouseY,delta);

@@ -33,5 +33,8 @@
   "cidb.cconfig.pairs": "Pairs",
 
   "cidb.config.uniqueitemcolorlist.name": "Unique Item Color List",
-  "cidb.config.uniqueitemcolorlist.desc": "An item map with color lists. If an item is on the map, its durability bar will use colors attached to item in map instead of the default ones."
+  "cidb.config.uniqueitemcolorlist.desc": "An item map with color lists. \nIf an item is on the map, its durability bar will use colors attached to item in map instead of the default ones.",
+  "cidb.config.colors.title": "Colors",
+  "cidb.config.parameters.title": "Parameters",
+  "cidb.config.name": "CIDB Settings"
 }

@@ -3,10 +3,8 @@ package net.xeroniodir.cidb.client.config.options;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.widgets.ListButtonWidget;
-import org.apache.commons.lang3.function.TriFunction;
 
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 

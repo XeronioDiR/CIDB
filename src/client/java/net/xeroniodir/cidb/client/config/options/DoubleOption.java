@@ -22,7 +22,7 @@ public class DoubleOption extends Option<Double> {
     public ClickableWidget createWidget(int x, int y, int width) {
         double initialProgress = (double)(getter.get() - min) / (double)(max - min);
 
-        return new SliderWidget(x, y, width, 20, Text.literal(String.valueOf(getter.get())), initialProgress) {
+        return new SliderWidget(x, y, width, 20, Text.literal(String.valueOf((int)(getter.get()*10)/10.0)), initialProgress) {
             @Override
             protected void updateMessage() {
                 this.setMessage(Text.literal(String.valueOf(getValueDouble())));

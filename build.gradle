@@ -10,23 +10,6 @@ base {
     archivesName = project.archives_base_name
 }
 
-loom {
-    splitEnvironmentSourceSets()
-
-    mods {
-        "cidb" {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.client
-        }
-    }
-}
-
-fabricApi {
-    configureDataGeneration {
-        client = true
-    }
-}
-
 repositories {
     maven {
         name = "Terraformers"
@@ -90,5 +73,16 @@ publishing {
     }
 
     repositories {
+    }
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "cibd" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
     }
 }

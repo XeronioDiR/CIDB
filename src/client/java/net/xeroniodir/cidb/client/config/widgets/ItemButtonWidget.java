@@ -33,13 +33,5 @@ public class ItemButtonWidget extends ButtonWidget {
         int iconY = this.getY() + this.getHeight() / 2 - 8;
 
         context.drawItem(stack,iconX,iconY,0);
-
-        context.drawCenteredTextWithShadow(
-                MinecraftClient.getInstance().textRenderer,
-                currentItem.getName(),
-                this.getX() + this.getWidth() / 2,
-                this.getY() + this.getHeight() + 2,
-                0xFFFFFF
-        );
     }
 }

@@ -6,12 +6,8 @@ import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.EntryListWidget;
-import net.minecraft.client.gui.widget.TextWidget;
+import net.minecraft.client.gui.widget.*;
 import net.minecraft.text.Text;
-import net.xeroniodir.cidb.client.config.ConfigManager;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.options.ListOption;
 
@@ -64,7 +60,11 @@ public class ListConfigScreen extends Screen {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        TextWidget titleText = new TextWidget(this.title,client.textRenderer).alignRight().setTextColor(0xFFFFFF);
+        //? if <1.21.1 {
+        TextWidget titleText = new TextWidget(this.title,client.textRenderer).setTextColor(0xFFFFFF);
+        //?} else {
+        /*TextWidget titleText = new TextWidget(Text.literal(this.title.getString()).withColor(0xFFFFFF),client.textRenderer);
+        *///?}
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
         titleText.setY(10);
         titleText.renderWidget(context,mouseX,mouseY,delta);

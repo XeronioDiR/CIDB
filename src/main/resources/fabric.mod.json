@@ -7,7 +7,10 @@
   "authors": [
     "XeronioDiR"
   ],
-  "contact": {},
+  "contact": {
+    "sources": "https://github.com/XeronioDiR/CIDB",
+    "issues": "https://github.com/XeronioDiR/CIDB/issues"
+  },
   "license": "CC-BY-SA-4.0",
   "icon": "assets/cidb/icon.png",
   "environment": "client",

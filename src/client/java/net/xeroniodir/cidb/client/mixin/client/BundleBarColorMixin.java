@@ -2,7 +2,9 @@ package net.xeroniodir.cidb.client.mixin.client;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BundleContentsComponent;
-import net.minecraft.item.BundleItem;
+//? if >=1.21.2
+/*import net.minecraft.item.BundleItem;*/
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.xeroniodir.cidb.client.ModConfig;
 import net.xeroniodir.cidb.client.config.ConfigManager;
@@ -13,11 +15,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.awt.*;
-
-@Mixin(BundleItem.class)
+//? if >=1.21.2 {
+/*@Mixin(BundleItem.class)
+*///?} else {
+@Mixin(Item.class)
+//?}
 public class BundleBarColorMixin {
-
-    @Inject(method = "getItemBarColor", at = @At("HEAD"), cancellable = true)
+    //? if >=1.21.2 {
+    /*@Inject(method = "getItemBarColor", at = @At("HEAD"), cancellable = true)
     private void injectBarColor(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         Color empty = new Color(ConfigManager.getLoaded().bundleBarColor);
         Color full = new Color(ConfigManager.getLoaded().fullBundleBarColor);
@@ -26,4 +31,5 @@ public class BundleBarColorMixin {
         int color = (selected.getRed() << 16) | (selected.getGreen() << 8) | selected.getBlue();
         cir.setReturnValue(color);
     }
+    *///?}
 }

@@ -1,13 +1,8 @@
 package net.xeroniodir.cidb.client.config.options;
 
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.ItemStackWidget;
-import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.widgets.ItemButtonWidget;
 

@@ -1,7 +1,6 @@
 package net.xeroniodir.cidb.client.config;
 
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.text.Text;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;

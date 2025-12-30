@@ -1,12 +1,10 @@
 package net.xeroniodir.cidb.client.config.widgets;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.xeroniodir.cidb.client.config.options.ColorOption;
 
 import java.awt.Color;
@@ -54,7 +52,7 @@ public class ColorPickerScreen extends Screen {
         int sliderX = this.width / 2 - sliderWidth / 2;
         int startY = this.height / 2 - (hasAlpha ? 60 : 40);
 
-        redSlider = new SliderWidget(sliderX, startY, sliderWidth, 8, Text.literal("R: " + this.red), this.red / 255.0) {
+        redSlider = new SliderWidget(sliderX, startY + 24, sliderWidth, 8, Text.literal("R: " + this.red), this.red / 255.0) {
             @Override
             protected void updateMessage() {
                 int newRed = (int) (this.value * 255);
@@ -69,7 +67,7 @@ public class ColorPickerScreen extends Screen {
         };
         this.addDrawableChild(redSlider);
 
-        greenSlider = new SliderWidget(sliderX, startY + 24, sliderWidth, 8, Text.literal("G: " + this.green), this.green / 255.0) {
+        greenSlider = new SliderWidget(sliderX, startY + 36, sliderWidth, 8, Text.literal("G: " + this.green), this.green / 255.0) {
             @Override
             protected void updateMessage() {
                 int newGreen = (int) (this.value * 255);
@@ -100,7 +98,7 @@ public class ColorPickerScreen extends Screen {
         this.addDrawableChild(blueSlider);
 
         if (hasAlpha) {
-            alphaSlider = new SliderWidget(sliderX, startY + 72, sliderWidth, 8, Text.literal("A: " + this.alphav), this.alphav / 255.0) {
+            alphaSlider = new SliderWidget(sliderX, startY + 60, sliderWidth, 8, Text.literal("A: " + this.alphav), this.alphav / 255.0) {
                 @Override
                 protected void updateMessage() {
                     int newAlpha = (int) (this.value * 255);

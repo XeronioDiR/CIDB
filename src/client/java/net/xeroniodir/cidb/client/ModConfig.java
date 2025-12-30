@@ -16,7 +16,7 @@ public class ModConfig {
     public List<Integer> colorList = List.of(0xFF00FF00,0xFFFF0000);
     public int twinklingDurabilityColor = 0xFFFF9898;
     public Map<String,List<Integer>> itemCustomDurabilityColor = Map.of(Items.DIAMOND_AXE.toString(), List.of(0xFF32E8C9,Color.red.getRGB()),
-            Items.IRON_AXE.toString(), List.of(0xFFFCFCFC,Color.red.getRGB()));
+            Items.IRON_AXE.toString(), List.of(0xFFFCFCFC,Color.green.getRGB(),Color.red.getRGB()));
     public DurabilityBarStyleEnum durabilityBarStyle = DurabilityBarStyleEnum.HORIZONTAL;
 
     // Метод для создания дефолтного конфига

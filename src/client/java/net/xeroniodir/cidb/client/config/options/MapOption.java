@@ -2,8 +2,6 @@ package net.xeroniodir.cidb.client.config.options;
 
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.xeroniodir.cidb.client.config.Option;
-import net.xeroniodir.cidb.client.config.screens.MapConfigScreen; // Новый экран
-import net.xeroniodir.cidb.client.config.widgets.ListButtonWidget; // Используем ту же кнопку
 import net.xeroniodir.cidb.client.config.widgets.MapButtonWidget;
 
 import java.util.Map;
