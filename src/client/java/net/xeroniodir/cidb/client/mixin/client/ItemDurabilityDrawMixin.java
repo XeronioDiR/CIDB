@@ -201,8 +201,7 @@ public class ItemDurabilityDrawMixin {
     private void renderItemBar(ItemStack stack, int x, int y, CallbackInfo ci){
         ci.cancel();
     }
-    *///?}
-
+    *///?} else if >=1.21{
     @Inject(at = @At("HEAD"), method="drawItemInSlot(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V",cancellable = true)
     private void customItemBar(TextRenderer textRenderer, ItemStack stack, int x, int y, String stackCountText, CallbackInfo ci){
         ci.cancel();
@@ -286,6 +285,7 @@ public class ItemDurabilityDrawMixin {
 
         ctx.getMatrices().pop();
     }
+    //?}
     private static String TextDurabilityText(int maxDamage,int damage){
         String text;
         int trueDurability = maxDamage - damage;
