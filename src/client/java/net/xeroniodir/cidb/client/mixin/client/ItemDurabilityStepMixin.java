@@ -3,6 +3,7 @@ package net.xeroniodir.cidb.client.mixin.client;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.xeroniodir.cidb.client.ModConfig;
+import net.xeroniodir.cidb.client.config.ConfigManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,8 +18,8 @@ public class ItemDurabilityStepMixin {
             return;
         }
 
-        boolean durBarLenOnCrit = ModConfig.HANDLER.instance().durabilityBarLengthOnCritical;
-        int procent = ModConfig.HANDLER.instance().durabilityProcent;
+        boolean durBarLenOnCrit = ConfigManager.getLoaded().durabilityBarLengthOnCritical;
+        int procent = ConfigManager.getLoaded().durabiltiyProcent;
 
         float damage = stack.getDamage();
         float max = stack.getMaxDamage();

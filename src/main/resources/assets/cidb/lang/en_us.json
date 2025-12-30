@@ -1,5 +1,5 @@
 {
-  "cdib.config.colorlist.description": "A list of colors that smoothly transition according to item durability. These colors define the gradient of the durability bar.\nP.S. transparency doesn't affect anything. It's here for prevent game from crashing.",
+  "cdib.config.colorlist.description": "A list of colors that smoothly transition according to item durability. \nThese colors define the gradient of the durability bar.",
   "cdib.config.twinklingdurabilitycolor.description": "The color used for the flicker effect when the item's durability reaches the critical threshold.",
   "cdib.config.durabilitytwinkling.description": "If enabled, the durability bar will flicker when the item is at critical durability",
   "cdib.config.durabilitybarincreaseoncritical.description": "If enabled, the durability bar temporarily rises to full length while at critical durability. \nMeanwhile when durability is not critical, bar will reduce faster (not durability).",
@@ -11,8 +11,8 @@
 
   "cdib.barstyles.horizontal": "Horizontal",
   "cdib.barstyles.vertical": "Vertical",
-  "cdib.barstyles.textpercent": "Percents",
-  "cdib.barstyles.textdurability": "Absolute",
+  "cdib.barstyles.percent": "Percents",
+  "cdib.barstyles.absolute": "Absolute",
 
   "cdib.config.colorlist.name": "Durability Colors",
   "cdib.config.twinklingdurabilitycolor.name": "Durability Flickering Color",
@@ -22,5 +22,19 @@
   "cdib.config.durabilitytwinklingspeed.name": "Durability Flickering Speed",
   "cdib.config.durabilitybarstyle.name": "Durability Bar Style",
   "cdib.config.bundlebarcolor.name": "Bundle Bar Color",
-  "cdib.config.fullbundlebarcolor.name": "Full Bundle Bar Color"
+  "cdib.config.fullbundlebarcolor.name": "Full Bundle Bar Color",
+  "cidb.cconfig.cancel": "Cancel",
+  "cidb.cconfig.exit": "Exit",
+  "cidb.cconfig.back": "Back",
+  "cidb.cconfig.save": "Save",
+  "cidb.cconfig.add": "Add",
+  "cidb.cconfig.reset": "Reset",
+  "cidb.cconfig.elements": "Elements",
+  "cidb.cconfig.pairs": "Pairs",
+
+  "cidb.config.uniqueitemcolorlist.name": "Unique Item Color List",
+  "cidb.config.uniqueitemcolorlist.desc": "An item map with color lists. \nIf an item is on the map, its durability bar will use colors attached to item in map instead of the default ones.",
+  "cidb.config.colors.title": "Colors",
+  "cidb.config.parameters.title": "Parameters",
+  "cidb.config.name": "CIDB Settings"
 }

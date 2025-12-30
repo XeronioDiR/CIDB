@@ -2,7 +2,10 @@ package net.xeroniodir.cidb.client.mixin.client;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 import net.xeroniodir.cidb.client.ModConfig;
+import net.xeroniodir.cidb.client.config.ConfigManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -10,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.awt.*;
 import java.util.List;
+import java.util.ArrayList;
 
 @Mixin(Item.class)
 public class ItemDurabilityColorMixin {
@@ -17,9 +21,19 @@ public class ItemDurabilityColorMixin {
     @Inject(method = "getItemBarColor", at = @At("HEAD"), cancellable = true)
     private void injectBarColor(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         float pct;
-        Color twinklingColor = ModConfig.HANDLER.instance().twinklingDurabilityColor;
-        List<Color> colorList = ModConfig.HANDLER.instance().colorList;
-        double twinklingSpeed = ModConfig.HANDLER.instance().twinklingSpeed;
+        Color twinklingColor = new Color(ConfigManager.getLoaded().twinklingDurabilityColor);
+        List<Color> colorList = new ArrayList<>();
+        if(ConfigManager.getLoaded().itemCustomDurabilityColor.containsKey(Registries.ITEM.getId(stack.getItem()).toString())){
+            for (Integer ci : ConfigManager.getLoaded().itemCustomDurabilityColor.get(Registries.ITEM.getId(stack.getItem()).toString())){
+                colorList.add(new Color(ci));
+            }
+        }
+        else{
+            for (Integer ci : ConfigManager.getLoaded().colorList){
+                colorList.add(new Color(ci));
+            }
+        }
+        double twinklingSpeed = ConfigManager.getLoaded().twinklingSpeed;
 
         if (stack.getDamage() > 0) {
             pct = 1f - ((float) stack.getDamage() / (float) stack.getMaxDamage());
@@ -28,7 +42,7 @@ public class ItemDurabilityColorMixin {
         }
 
         pct = Math.max(0f, Math.min(1f, pct));
-        int procent = ModConfig.HANDLER.instance().durabilityProcent;
+        int procent = ConfigManager.getLoaded().durabiltiyProcent;
 
         boolean blinking = pct < 0.01f * procent;
         float pos = (float) stack.getDamage() / stack.getMaxDamage() * (colorList.size() - 1);
@@ -57,7 +71,7 @@ public class ItemDurabilityColorMixin {
 
         int r, g, b;
 
-        if (blinking && ModConfig.HANDLER.instance().durabilityTwinkling) {
+        if (blinking && ConfigManager.getLoaded().durabilityTwinkling) {
             long t = System.currentTimeMillis(); /// Using System since it will not change on tick speed (or other server stuff)
 
             float pulse = (float) ((Math.sin(t * 0.008 * twinklingSpeed) + 1.0) / 2);

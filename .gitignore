@@ -3,3 +3,14 @@
 /gradle/
 /run/
 /.idea/
+/save/
+/versions/1.21/.gradle/
+/versions/1.21/build/
+/versions/1.21.2/.gradle/
+/versions/1.21.2/build/
+/versions/1.21.6/.gradle/
+/versions/1.21.6/build/
+/versions/1.21.9/.gradle/
+/versions/1.21.9/build/
+/versions/1.21.11/.gradle/
+/versions/1.21.11/build/
