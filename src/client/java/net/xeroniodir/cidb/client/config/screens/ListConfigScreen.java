@@ -1,6 +1,8 @@
 package net.xeroniodir.cidb.client.config.screens;
 
 import net.minecraft.client.MinecraftClient;
+//? if >=1.21.9
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -61,10 +63,10 @@ public class ListConfigScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
         //? if <1.21.1 {
-        TextWidget titleText = new TextWidget(this.title,client.textRenderer).setTextColor(0xFFFFFF);
-        //?} else {
-        /*TextWidget titleText = new TextWidget(Text.literal(this.title.getString()).withColor(0xFFFFFF),client.textRenderer);
-        *///?}
+        /*TextWidget titleText = new TextWidget(this.title,client.textRenderer).setTextColor(0xFFFFFF);
+        *///?} else {
+        TextWidget titleText = new TextWidget(Text.literal(this.title.getString()).withColor(0xFFFFFF),client.textRenderer);
+        //?}
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
         titleText.setY(10);
         titleText.renderWidget(context,mouseX,mouseY,delta);
@@ -107,8 +109,8 @@ public class ListConfigScreen extends Screen {
                     client.setScreen(new ListConfigScreen(parent, option, workingList));
                 }).dimensions(0, 0, 20, 20).build();
             }
-
-            @Override
+            //? if <=1.21.8 {
+            /*@Override
             public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
 
                 TextWidget textWidget = new TextWidget(Text.literal("#" + (index + 1)),client.textRenderer);
@@ -126,9 +128,6 @@ public class ListConfigScreen extends Screen {
                 deleteButton.setY(y);
                 deleteButton.render(context, mouseX, mouseY, delta);
             }
-
-            public List<? extends Element> children() { return List.of(valueWidget, deleteButton); }
-            public List<? extends Selectable> selectableChildren() { return List.of(valueWidget, deleteButton); }
 
             @Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
@@ -151,6 +150,56 @@ public class ListConfigScreen extends Screen {
                 }
                 return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
             }
+            *///?} else if >= 1.21.9 {
+            @Override
+            public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
+                int x = getX();
+                int y = getY();
+                int entryWidth = getWidth();
+                TextWidget textWidget = new TextWidget(Text.literal("#" + (index + 1)),client.textRenderer);
+                textWidget.setX(x + 5);
+                textWidget.setY(y + 6);
+                textWidget.setTextColor(0xAAAAAA);
+                textWidget.renderWidget(context,mouseX,mouseY,delta);
+
+                int widgetX = x + entryWidth - 25 - 150 - 5;
+                valueWidget.setX(widgetX);
+                valueWidget.setY(y);
+                valueWidget.render(context, mouseX, mouseY, delta);
+
+                deleteButton.setX(x + entryWidth - 25);
+                deleteButton.setY(y);
+                deleteButton.render(context, mouseX, mouseY, delta);
+            }
+
+            @Override
+            public boolean mouseClicked(Click click, boolean doubled) {
+                if (valueWidget.mouseClicked(click,doubled)) {
+                    return true;
+                }
+                if (deleteButton.mouseClicked(click,doubled)) {
+                    return true;
+                }
+                return super.mouseClicked(click,doubled);
+            }
+
+            @Override
+            public boolean mouseReleased(Click click) {
+                if (valueWidget.mouseReleased(click)) return true;
+                if (deleteButton.mouseReleased(click)) return true;
+                return super.mouseReleased(click);
+            }
+
+            @Override
+            public boolean mouseDragged(Click click, double offsetX, double offsetY) {
+                if (valueWidget.mouseDragged(click,offsetX,offsetY) && valueWidget.isFocused()) {
+                    return true;
+                }
+                return super.mouseDragged(click,offsetX,offsetY);
+            }
+            //?}
+            public List<? extends Element> children() { return List.of(valueWidget, deleteButton); }
+            public List<? extends Selectable> selectableChildren() { return List.of(valueWidget, deleteButton); }
         }
     }
 }

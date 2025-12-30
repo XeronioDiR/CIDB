@@ -1,6 +1,8 @@
 package net.xeroniodir.cidb.client.config.screens;
 
 import net.minecraft.client.MinecraftClient;
+//? if >=1.21.9
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -126,8 +128,8 @@ public class MapConfigScreen extends Screen {
                     client.setScreen(new MapConfigScreen(parent, option, workingList));
                 }).dimensions(0, 0, 20, 20).build();
             }
-
-            @Override
+            //? if <=1.21.8 {
+            /*@Override
             public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
                 keyWidget.setX(x + 2);
                 keyWidget.setY(y);
@@ -149,8 +151,7 @@ public class MapConfigScreen extends Screen {
                 deleteButton.setY(y);
                 deleteButton.render(context, mouseX, mouseY, delta);
             }
-
-            @Override
+            /^@Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 if (keyWidget.mouseClicked(mouseX, mouseY, button)) {
                     return true;
@@ -182,9 +183,70 @@ public class MapConfigScreen extends Screen {
                 }
                 return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
             }
+            ^/*///?} else if >= 1.21.9 {
+            @Override
+            public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
+                int x = getX();
+                int y = getY();
+                int entryWidth = getWidth();
+                keyWidget.setX(x + 2);
+                keyWidget.setY(y);
+                keyWidget.setWidth(100);
+                keyWidget.render(context, mouseX, mouseY, delta);
+
+                TextWidget textWidget = new TextWidget(Text.literal("->"),client.textRenderer);
+                textWidget.setX(x + 105);
+                textWidget.setY(y + 6);
+                textWidget.setTextColor(0xAAAAAA);
+                textWidget.renderWidget(context,mouseX,mouseY,delta);
+
+                valueWidget.setX(x + 120);
+                valueWidget.setY(y);
+                valueWidget.setWidth(100);
+                valueWidget.render(context, mouseX, mouseY, delta);
+
+                deleteButton.setX(x + entryWidth - 25);
+                deleteButton.setY(y);
+                deleteButton.render(context, mouseX, mouseY, delta);
+            }
+
+            @Override
+            public boolean mouseClicked(Click click, boolean doubled) {
+                if (keyWidget.mouseClicked(click,doubled)) {
+                    return true;
+                }
+                if (valueWidget.mouseClicked(click,doubled)) {
+                    return true;
+                }
+                if (deleteButton.mouseClicked(click,doubled)) {
+                    return true;
+                }
+                return super.mouseClicked(click,doubled);
+            }
+
+            @Override
+            public boolean mouseReleased(Click click) {
+                if (valueWidget.mouseReleased(click)) return true;
+                if (deleteButton.mouseReleased(click)) return true;
+                if (keyWidget.mouseReleased(click)) return true;
+                return super.mouseReleased(click);
+            }
+
+            @Override
+            public boolean mouseDragged(Click click, double offsetX, double offsetY) {
+                if (keyWidget.mouseDragged(click,offsetX,offsetY) && keyWidget.isFocused()) {
+                    return true;
+                }
+                if (valueWidget.mouseDragged(click,offsetX,offsetY) && valueWidget.isFocused()) {
+                    return true;
+                }
+                return super.mouseDragged(click,offsetX,offsetY);
+            }
+            //?}
 
             public List<? extends Element> children() { return List.of(keyWidget, valueWidget, deleteButton); }
             public List<? extends Selectable> selectableChildren() { return List.of(keyWidget, valueWidget, deleteButton); }
+
         }
     }
 }

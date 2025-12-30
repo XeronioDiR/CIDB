@@ -28,7 +28,7 @@ public class DescriptionScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
 
-        TextWidget titleText = new TextWidget(this.title, client.textRenderer).alignCenter().setTextColor(0xFFFFFF);
+        TextWidget titleText = new TextWidget(this.title, client.textRenderer).setTextColor(0xFFFFFF);
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
         titleText.setY(20);
         titleText.renderWidget(context, mouseX, mouseY, delta);

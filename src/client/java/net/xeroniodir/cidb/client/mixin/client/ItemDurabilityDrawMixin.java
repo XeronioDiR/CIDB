@@ -3,19 +3,19 @@ package net.xeroniodir.cidb.client.mixin.client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 //? if >=1.21.6
-/*import net.minecraft.client.gl.RenderPipelines;*/
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 //? if >=1.21 <=1.21.5 {
-import net.minecraft.client.network.ClientPlayerEntity;
+/*import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.math.MatrixStack;
-//?}
+*///?}
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BundleContentsComponent;
 import net.minecraft.item.BundleItem;
 import net.minecraft.item.ItemStack;
 //? if >=1.21.2
-/*import net.minecraft.util.math.ColorHelper;*/
+import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
 import net.xeroniodir.cidb.client.DurabilityBarStyleEnum;
 import net.xeroniodir.cidb.client.ModConfig;
@@ -33,7 +33,7 @@ import java.awt.*;
 @Mixin(DrawContext.class)
 public class ItemDurabilityDrawMixin {
     //? if >=1.21.6 {
-    /*@Inject(method = "drawItemBar", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "drawItemBar", at = @At("HEAD"), cancellable = true)
     private void customDrawItemBar(ItemStack stack, int x, int y, CallbackInfo ci){
         ci.cancel();
         DrawContext ctx = (DrawContext)(Object)this;
@@ -43,12 +43,12 @@ public class ItemDurabilityDrawMixin {
                 int i = x + 2;
                 int j = y + 13;
                 //? if >=1.21.6 {
-                /^ctx.fill(RenderPipelines.GUI, i, j, i + 13, j + 2, -16777216);
+                ctx.fill(RenderPipelines.GUI, i, j, i + 13, j + 2, -16777216);
                 ctx.fill(RenderPipelines.GUI, i, j, i + stack.getItemBarStep(), j + 1, ColorHelper.fullAlpha(stack.getItemBarColor()));
-                ^///?} else if 1.21.5 {
-                /^ctx.fill(RenderLayer.getGui(),i, j, i + 13, j + 2, -16777216);
+                //?} else if 1.21.5 {
+                /*ctx.fill(RenderLayer.getGui(),i, j, i + 13, j + 2, -16777216);
                 ctx.fill(RenderLayer.getGui(),i, j, i + stack.getItemBarStep(), j + 1, ColorHelper.fullAlpha(stack.getItemBarColor()));
-                ^///?}
+                *///?}
 
             }
         }
@@ -57,30 +57,30 @@ public class ItemDurabilityDrawMixin {
                 int i = x + 2;
                 int j = y + 2;
                 //? if >=1.21.6 {
-                /^ctx.fill(RenderPipelines.GUI, i, j, i + 1, j + 13, -16777216);
+                ctx.fill(RenderPipelines.GUI, i, j, i + 1, j + 13, -16777216);
                 ctx.fill(RenderPipelines.GUI, i, j - stack.getItemBarStep() + 13, i + 1, j + 13 , ColorHelper.fullAlpha(stack.getItemBarColor()));
-                ^///?} else if 1.21.5 {
-                /^ctx.fill(RenderLayer.getGui(),i, j, i + 1, j + 13, -16777216);
+                //?} else if 1.21.5 {
+                /*ctx.fill(RenderLayer.getGui(),i, j, i + 1, j + 13, -16777216);
                 ctx.fill(RenderLayer.getGui(),i, j - stack.getItemBarStep() + 13, i + 1, j + 13 , ColorHelper.fullAlpha(stack.getItemBarColor()));
-                ^///?}
+                *///?}
             }
         }
         if (ConfigManager.getLoaded().durabilityBarStyle == DurabilityBarStyleEnum.PERCENT){
             if (stack.isItemBarVisible()) {
                 //? if >= 1.21.6 {
-                /^Matrix3x2fStack matrices = ctx.getMatrices();
+                Matrix3x2fStack matrices = ctx.getMatrices();
                 matrices.pushMatrix();
-                ^///?} else if 1.21.5 {
-                /^MatrixStack matrices = ctx.getMatrices();
+                //?} else if 1.21.5 {
+                /*MatrixStack matrices = ctx.getMatrices();
                 matrices.push();
-                ^///?}
+                *///?}
                 int i = x + 1;
                 int j = y + 10;
                 //? if >= 1.21.6 {
-                /^matrices.scaleAround(0.7f,i,j);
-                 ^///?} else if 1.21.5 {
-                /^matrices.peek().getPositionMatrix().scaleAround(0.7f,i,j,1);
-                ^///?}
+                matrices.scaleAround(0.7f,i,j);
+                 //?} else if 1.21.5 {
+                /*matrices.peek().getPositionMatrix().scaleAround(0.7f,i,j,1);
+                *///?}
                 int max = stack.getMaxDamage();
                 int dmg = stack.getDamage();
                 int percent;
@@ -93,21 +93,21 @@ public class ItemDurabilityDrawMixin {
                 String text = percent + "%";
                 ctx.drawTextWithShadow(tr,text,i,j,ColorHelper.fullAlpha(stack.getItemBarColor()));
                 //? if >= 1.21.6 {
-                /^matrices.popMatrix();
-                 ^///?} else if 1.21.5 {
-                /^matrices.pop();
-                ^///?}
+                matrices.popMatrix();
+                 //?} else if 1.21.5 {
+                /*matrices.pop();
+                *///?}
             }
         }
         if (ConfigManager.getLoaded().durabilityBarStyle == DurabilityBarStyleEnum.ABSOLUTE){
             if (stack.isItemBarVisible()) {
                 //? if >= 1.21.6 {
-                /^Matrix3x2fStack matrices = ctx.getMatrices();
+                Matrix3x2fStack matrices = ctx.getMatrices();
                 matrices.pushMatrix();
-                ^///?} else if >=1.21.2 {
-                /^MatrixStack matrices = ctx.getMatrices();
+                //?} else if >=1.21.2 {
+                /*MatrixStack matrices = ctx.getMatrices();
                 matrices.push();
-                ^///?}
+                *///?}
                 int i = x + 1;
                 int j = y + 10;
                 String text;
@@ -118,21 +118,21 @@ public class ItemDurabilityDrawMixin {
                     text = TextDurabilityText(stack.getMaxDamage(),stack.getDamage());
                 }
                 //? if >= 1.21.6 {
-                /^matrices.scaleAround(0.7f,i,j);
-                ^///?} else if 1.21.5 {
-                /^matrices.peek().getPositionMatrix().scaleAround(0.7f,i,j,1);
-                ^///?}
+                matrices.scaleAround(0.7f,i,j);
+                //?} else if 1.21.5 {
+                /*matrices.peek().getPositionMatrix().scaleAround(0.7f,i,j,1);
+                *///?}
                 ctx.drawTextWithShadow(tr,text,i,j,ColorHelper.fullAlpha(stack.getItemBarColor()));
                 //? if >= 1.21.6 {
-                /^matrices.popMatrix();
-                 ^///?} else if 1.21.5 {
-                /^matrices.pop();
-                ^///?}
+                matrices.popMatrix();
+                 //?} else if 1.21.5 {
+                /*matrices.pop();
+                *///?}
 
             }
         }
     }
-    *///?} else if >=1.21.2 {
+    //?} else if >=1.21.2 {
     /*@Inject(at = @At("HEAD"), method="drawStackOverlay(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V")
     private void customItemBar(TextRenderer textRenderer, ItemStack stack, int x, int y, String stackCountText, CallbackInfo ci){
         DrawContext ctx = (DrawContext)(Object)this;
@@ -201,8 +201,8 @@ public class ItemDurabilityDrawMixin {
     private void renderItemBar(ItemStack stack, int x, int y, CallbackInfo ci){
         ci.cancel();
     }
-    *///?} else if >=1.21{
-    @Inject(at = @At("HEAD"), method="drawItemInSlot(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V",cancellable = true)
+    *///?} else if >=1.21 {
+    /*@Inject(at = @At("HEAD"), method="drawItemInSlot(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V",cancellable = true)
     private void customItemBar(TextRenderer textRenderer, ItemStack stack, int x, int y, String stackCountText, CallbackInfo ci){
         ci.cancel();
         if (stack.isEmpty()) return;
@@ -285,7 +285,7 @@ public class ItemDurabilityDrawMixin {
 
         ctx.getMatrices().pop();
     }
-    //?}
+    *///?}
     private static String TextDurabilityText(int maxDamage,int damage){
         String text;
         int trueDurability = maxDamage - damage;

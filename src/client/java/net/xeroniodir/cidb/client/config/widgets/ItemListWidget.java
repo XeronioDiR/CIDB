@@ -1,6 +1,8 @@
 package net.xeroniodir.cidb.client.config.widgets;
 
 import net.minecraft.client.MinecraftClient;
+//? if >=1.21.9
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -69,8 +71,8 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
         public ItemRowEntry(List<Item> items) {
             this.rowItems = items;
         }
-
-        @Override
+        //? if <=1.21.8 {
+        /*@Override
         public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
             for (int i = 0; i < rowItems.size(); i++) {
                 Item item = rowItems.get(i);
@@ -82,7 +84,7 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
                 context.drawItem(stack, itemX, itemY, 0);
 
                 if (item == option.getter.get()) {
-                    context.drawBorder(itemX - 1, itemY - 1, ITEM_SIZE, ITEM_SIZE, 0xFF00FF00); // Зеленая рамка
+
                 }
             }
         }
@@ -105,7 +107,39 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
             }
             return super.mouseClicked(mouseX, mouseY, button);
         }
+        *///?} else if >= 1.21.9 {
+        @Override
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+            int x = getX();
+            int y = getY();
+            for (int i = 0; i < rowItems.size(); i++) {
+                Item item = rowItems.get(i);
+                ItemStack stack = new ItemStack(item);
 
+                int itemX = x + itemsMarginLeft + i * ITEM_SIZE;
+                int itemY = y + 1;
+
+                context.drawItem(stack, itemX, itemY, 0);
+
+                if (item == option.getter.get()) {
+                }
+            }
+        }
+        public boolean mouseClicked(Click click, boolean doubled) {
+                for (int i = 0; i < rowItems.size(); i++) {
+                    int itemX = getX() + itemsMarginLeft + i * ITEM_SIZE;
+
+                    if (click.x() >= itemX && click.x() < itemX + ITEM_SIZE) {
+                        Item item = rowItems.get(i);
+                        option.setter.accept(item);
+
+                        client.setScreen(parentScreen.parent);
+                        return true;
+                    }
+                }
+            return super.mouseClicked(click,doubled);
+        }
+        //?}
         public List<? extends Selectable> selectableChildren() { return List.of(); }
         public List<? extends Element> children() { return List.of(); }
     }

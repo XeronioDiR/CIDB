@@ -1,6 +1,8 @@
 package net.xeroniodir.cidb.client.config;
 
 import net.minecraft.client.MinecraftClient;
+//? if >=1.21.9
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -133,8 +135,8 @@ public class ConfigScreen extends Screen {
             public List<? extends Selectable> selectableChildren() {
                 return List.of(valueWidget, resetButton, descriptionButton);
             }
-
-            @Override
+            //? if <=1.21.8 {
+            /*@Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 if (valueWidget.mouseClicked(mouseX, mouseY, button)) return true;
                 if (resetButton.mouseClicked(mouseX, mouseY, button)) return true;
@@ -198,6 +200,99 @@ public class ConfigScreen extends Screen {
                     context.drawTooltip(client.textRenderer, fullTitle, mouseX, mouseY);
                 }}
             }
+            *///?} else if >=1.21.9 {
+            @Override
+            public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
+                updateWidgetPositions();
+                int x = getX();
+                int y = getY();
+                int entryWidth = getWidth();
+                int currentX = x + entryWidth;
+                if(option instanceof TextOption){
+                    TextWidget titleText = new TextWidget(((TextOption)option).title, client.textRenderer).setTextColor(0xFFFFFF);
+                    titleText.setX(entryWidth/2 + x - titleText.getWidth() / 2);
+                    titleText.setY(y + 6);
+                    titleText.renderWidget(context, mouseX, mouseY, delta);
+                }
+                else {
+                    // Description Button
+                    currentX -= (BUTTON_WIDTH + SPACING);
+                    descriptionButton.setX(currentX);
+                    descriptionButton.setY(y);
+                    descriptionButton.render(context, mouseX, mouseY, delta);
+
+                    // Reset Button
+                    currentX -= (BUTTON_WIDTH + SPACING);
+                    resetButton.setX(currentX);
+                    resetButton.setY(y);
+                    resetButton.render(context, mouseX, mouseY, delta);
+
+                    // Value Widget
+                    currentX -= (WIDGET_WIDTH + SPACING);
+                    valueWidget.setX(currentX);
+                    valueWidget.setY(y);
+                    valueWidget.render(context, mouseX, mouseY, delta);
+
+                    // Title
+                    int titleWidth = currentX - x - SPACING;
+                    Text fullTitle = Text.translatable(option.title);
+                    Text trimmedTitle = Text.literal(client.textRenderer.trimToWidth(fullTitle, titleWidth).getString());
+
+                    TextWidget titleText = new TextWidget(trimmedTitle, client.textRenderer).setTextColor(0xFFFFFF);
+                    titleText.setX(x + 5);
+                    titleText.setY(y + 6);
+                    titleText.renderWidget(context, mouseX, mouseY, delta);
+
+                    if (descriptionButton.isMouseOver(mouseX,mouseY)) {
+                        context.drawTooltip(client.textRenderer, fullTitle, mouseX, mouseY);
+                    }}
+            }
+
+            @Override
+            public boolean mouseClicked(Click click, boolean doubled) {
+                updateWidgetPositions();
+                if (valueWidget.mouseClicked(click,doubled)) return true;
+                if (resetButton.mouseClicked(click,doubled)) return true;
+                if (descriptionButton.mouseClicked(click,doubled)) return true;
+                return super.mouseClicked(click,doubled);
+            }
+
+
+
+            @Override
+            public boolean mouseReleased(Click click) {
+                if (valueWidget.mouseReleased(click)) return true;
+                if (resetButton.mouseReleased(click)) return true;
+                if (descriptionButton.mouseReleased(click)) return true;
+                return super.mouseReleased(click);
+            }
+
+            @Override
+            public boolean mouseDragged(Click click, double offsetX, double offsetY) {
+                updateWidgetPositions();
+                if (valueWidget.mouseDragged(click,offsetX,offsetY)) return true;
+                return super.mouseDragged(click,offsetX,offsetY);
+            }
+
+            private void updateWidgetPositions() {
+                int x = getX();
+                int y = getY();
+                int w = getWidth();
+                int currentX = x + w;
+
+                currentX -= BUTTON_WIDTH;
+                descriptionButton.setX(currentX);
+                descriptionButton.setY(y);
+
+                currentX -= (BUTTON_WIDTH + SPACING);
+                resetButton.setX(currentX);
+                resetButton.setY(y);
+
+                currentX -= (WIDGET_WIDTH + SPACING);
+                valueWidget.setX(currentX);
+                valueWidget.setY(y);
+            }
+            //?}
         }
     }
 }
