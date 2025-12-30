@@ -21,15 +21,13 @@ import java.util.function.Supplier;
 public class ListConfigScreen extends Screen {
     private final Screen parent;
     private final ListOption<Object> option;
-    private final List<Object> workingList; // Список, с которым мы работаем прямо сейчас
+    private final List<Object> workingList;
     private ListEntryList optionList;
 
-    // Конструктор 1: Вызывается из главного меню (читает из конфига)
     public ListConfigScreen(Screen parent, ListOption<Object> option) {
         this(parent, option, new ArrayList<>(option.getter.get()));
     }
 
-    // Конструктор 2: Вызывается при обновлении экрана (Add/Remove) - принимает уже измененный список
     private ListConfigScreen(Screen parent, ListOption<Object> option, List<Object> currentList) {
         super(Text.translatable(option.title));
         this.parent = parent;
