@@ -38,6 +38,14 @@ public class ConfigManager {
         }
     }
 
+    public static void loadPreset(int id){
+        if(id == 1){
+            current = ModConfig.getPreset1();
+        } else if (id == 2) {
+            current = ModConfig.getPreset2();
+        }
+    }
+
     public static void save() {
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
             GSON.toJson(current, writer);

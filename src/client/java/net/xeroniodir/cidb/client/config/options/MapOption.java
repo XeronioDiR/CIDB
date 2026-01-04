@@ -21,6 +21,7 @@ public class MapOption<K, V> extends Option<Map<K, V>> {
 
     private final Supplier<K> defaultKeySupplier;
     private final Supplier<V> defaultValueSupplier;
+    public int minCount = 0;
 
     public MapOption(String title,
                      Map<K, V> defaultValue,
@@ -30,12 +31,14 @@ public class MapOption<K, V> extends Option<Map<K, V>> {
                      Supplier<V> defaultValueSupplier,
                      TriFunction<K, Consumer<K>, Supplier<K>, Option<K>> keyOptionFactory,
                      TriFunction<V, Consumer<V>, Supplier<V>, Option<V>> valueOptionFactory,
-                     String description) {
+                     String description,
+                     int minCount) {
         super(title, defaultValue, getter, setter, description);
         this.defaultKeySupplier = defaultKeySupplier;
         this.defaultValueSupplier = defaultValueSupplier;
         this.keyOptionFactory = keyOptionFactory;
         this.valueOptionFactory = valueOptionFactory;
+        this.minCount = minCount;
     }
 
     @Override

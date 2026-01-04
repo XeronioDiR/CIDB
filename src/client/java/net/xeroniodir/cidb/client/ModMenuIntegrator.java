@@ -11,7 +11,10 @@ import net.xeroniodir.cidb.client.config.ConfigManager;
 import net.xeroniodir.cidb.client.config.ConfigScreen;
 import net.xeroniodir.cidb.client.config.options.*;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +42,8 @@ public class ModMenuIntegrator implements ModMenuApi {
                                     setters,
                                     ""
                             ),
-                            "cdib.config.colorlist.description"
+                            "cdib.config.colorlist.description",
+                            1
                     ),
                     new ColorOption(
                             "cdib.config.twinklingdurabilitycolor.name",
@@ -48,6 +52,14 @@ public class ModMenuIntegrator implements ModMenuApi {
                             () -> ConfigManager.get().twinklingDurabilityColor,
                             v -> ConfigManager.get().twinklingDurabilityColor = v,
                             "cdib.config.twinklingdurabilitycolor.description"
+                    ),
+                    new EnumOption<DurabilityColorStyleEnum>(
+                            "cidb.config.durabilitycolorstyle.name",
+                            DurabilityColorStyleEnum.VANILLA,
+                            () -> ConfigManager.get().durabilityColorStyle,
+                            v -> ConfigManager.get().durabilityColorStyle = v,
+                            DurabilityColorStyleEnum.class,
+                            "cdib.config.durabilitycolorstyle.description"
                     ),
                     new ColorOption(
                             "cdib.config.bundlebarcolor.name",
@@ -97,7 +109,6 @@ public class ModMenuIntegrator implements ModMenuApi {
                                     keySetter,
                                     ""
                             ),
-
                             (valVal, valSetter, valGetter) -> new ListOption<Integer>(
                                     "",
                                     valVal,
@@ -112,9 +123,11 @@ public class ModMenuIntegrator implements ModMenuApi {
                                             setters,
                                             ""
                                     ),
-                                    ""
+                                    "",
+                                    1
                             ),
-                            "cidb.config.uniqueitemcolorlist.desc"
+                            "cidb.config.uniqueitemcolorlist.desc",
+                            0
                     ),
                     new TextOption(
                             Text.translatable("cidb.config.parameters.title")
@@ -156,6 +169,19 @@ public class ModMenuIntegrator implements ModMenuApi {
                             () -> ConfigManager.get().durabiltiyProcent,
                             v -> ConfigManager.get().durabiltiyProcent = v,
                             "cdib.config.criticalpercent.description"
+                    ),
+                    new TextOption(Text.translatable("cidb.config.presets.title")),
+                    new ButtonOption(
+                            "cidb.config.preset1.name",
+                            button -> {
+                                ConfigManager.loadPreset(1);
+                            }
+                    ),
+                    new ButtonOption(
+                            "cidb.config.preset2.name",
+                            button -> {
+                                ConfigManager.loadPreset(2);
+                            }
                     )
             ));
         };

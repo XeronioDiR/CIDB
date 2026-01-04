@@ -149,9 +149,12 @@ public class MapConfigScreen extends Screen {
 
                 deleteButton.setX(x + entryWidth - 25);
                 deleteButton.setY(y);
+                if(workingList.size() <= option.minCount){
+                    deleteButton.active = false;
+                }
                 deleteButton.render(context, mouseX, mouseY, delta);
             }
-            /^@Override
+            @Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 if (keyWidget.mouseClicked(mouseX, mouseY, button)) {
                     return true;
@@ -183,7 +186,7 @@ public class MapConfigScreen extends Screen {
                 }
                 return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
             }
-            ^/*///?} else if >= 1.21.9 {
+            *///?} else if >= 1.21.9 {
             @Override
             public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
                 int x = getX();
@@ -207,6 +210,9 @@ public class MapConfigScreen extends Screen {
 
                 deleteButton.setX(x + entryWidth - 25);
                 deleteButton.setY(y);
+                if(workingList.size() <= option.minCount){
+                    deleteButton.active = false;
+                }
                 deleteButton.render(context, mouseX, mouseY, delta);
             }
 

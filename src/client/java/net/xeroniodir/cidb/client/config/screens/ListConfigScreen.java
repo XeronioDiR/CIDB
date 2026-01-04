@@ -124,6 +124,9 @@ public class ListConfigScreen extends Screen {
 
                 deleteButton.setX(x + entryWidth - 25);
                 deleteButton.setY(y);
+                if(workingList.size() <= option.minCount){
+                    deleteButton.active = false;
+                }
                 deleteButton.render(context, mouseX, mouseY, delta);
             }
 
@@ -167,6 +170,9 @@ public class ListConfigScreen extends Screen {
 
                 deleteButton.setX(x + entryWidth - 25);
                 deleteButton.setY(y);
+                if(workingList.size() <= option.minCount){
+                    deleteButton.active = false;
+                }
                 deleteButton.render(context, mouseX, mouseY, delta);
             }
 
