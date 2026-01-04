@@ -2,7 +2,7 @@ package net.xeroniodir.cidb.client.config.widgets;
 
 import net.minecraft.client.MinecraftClient;
 //? if >=1.21.9
-import net.minecraft.client.gui.Click;
+/*import net.minecraft.client.gui.Click;*/
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -72,7 +72,7 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
             this.rowItems = items;
         }
         //? if <=1.21.8 {
-        /*@Override
+        @Override
         public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
             for (int i = 0; i < rowItems.size(); i++) {
                 Item item = rowItems.get(i);
@@ -107,8 +107,8 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
             }
             return super.mouseClicked(mouseX, mouseY, button);
         }
-        *///?} else if >= 1.21.9 {
-        @Override
+        //?} else if >= 1.21.9 {
+        /*@Override
         public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
             int x = getX();
             int y = getY();
@@ -139,7 +139,7 @@ public class ItemListWidget extends EntryListWidget<ItemListWidget.ItemRowEntry>
                 }
             return super.mouseClicked(click,doubled);
         }
-        //?}
+        *///?}
         public List<? extends Selectable> selectableChildren() { return List.of(); }
         public List<? extends Element> children() { return List.of(); }
     }

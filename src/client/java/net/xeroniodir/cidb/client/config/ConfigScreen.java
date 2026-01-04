@@ -2,7 +2,7 @@ package net.xeroniodir.cidb.client.config;
 
 import net.minecraft.client.MinecraftClient;
 //? if >=1.21.9
-import net.minecraft.client.gui.Click;
+/*import net.minecraft.client.gui.Click;*/
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -15,6 +15,7 @@ import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
+import net.xeroniodir.cidb.client.config.options.ButtonOption;
 import net.xeroniodir.cidb.client.config.options.TextOption;
 import net.xeroniodir.cidb.client.config.screens.DescriptionScreen;
 
@@ -36,7 +37,7 @@ public class ConfigScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        optionList = new ConfigOptionList(this.client, this.width, this.height - 60, 32, 25);
+        optionList = new ConfigOptionList(this.client, this.width, this.height - 60, 32, 23);
 
         for (Option<?> option : options) {
             optionList.addOption(option);
@@ -107,6 +108,7 @@ public class ConfigScreen extends Screen {
         public class OptionEntry extends EntryListWidget.Entry<OptionEntry> {
             private final Option<?> option;
             private final ClickableWidget valueWidget;
+            private ButtonWidget buttonWidget;
             private final ButtonWidget resetButton;
             private final ButtonWidget descriptionButton;
 
@@ -126,6 +128,13 @@ public class ConfigScreen extends Screen {
                     client.setScreen(new DescriptionScreen(ConfigScreen.this, Text.translatable(option.title), Text.translatable(option.description)));
                 }).dimensions(0, 0, BUTTON_WIDTH, 20).build();
                 this.descriptionButton.active = !Objects.equals(option.description, "");
+                if(option instanceof ButtonOption){
+                    this.buttonWidget = (ButtonWidget) ((ButtonOption)option).createWidget(0,0,250,
+                            button -> {
+                        client.setScreen(new ConfigScreen(ConfigScreen.this.parent, ConfigScreen.this.options));
+                    }
+                    );
+                }
             }
 
             public List<? extends Element> children() {
@@ -136,8 +145,11 @@ public class ConfigScreen extends Screen {
                 return List.of(valueWidget, resetButton, descriptionButton);
             }
             //? if <=1.21.8 {
-            /*@Override
+            @Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
+                if(buttonWidget != null){
+                    if (buttonWidget.mouseClicked(mouseX,mouseY,button)) return true;
+                }
                 if (valueWidget.mouseClicked(mouseX, mouseY, button)) return true;
                 if (resetButton.mouseClicked(mouseX, mouseY, button)) return true;
                 if (descriptionButton.mouseClicked(mouseX, mouseY, button)) return true;
@@ -146,6 +158,9 @@ public class ConfigScreen extends Screen {
 
             @Override
             public boolean mouseReleased(double mouseX, double mouseY, int button) {
+                if(buttonWidget != null){
+                    if (buttonWidget.mouseReleased(mouseX,mouseY,button)) return true;
+                }
                 if (valueWidget.mouseReleased(mouseX, mouseY, button)) return true;
                 if (resetButton.mouseReleased(mouseX, mouseY, button)) return true;
                 if (descriptionButton.mouseReleased(mouseX, mouseY, button)) return true;
@@ -167,26 +182,27 @@ public class ConfigScreen extends Screen {
                     titleText.setY(y + 6);
                     titleText.renderWidget(context, mouseX, mouseY, delta);
                 }
+                else if(option instanceof ButtonOption){
+                    buttonWidget.setX(entryWidth/2 + x - 250 / 2);
+                    buttonWidget.setY(y);
+                    buttonWidget.render(context, mouseX, mouseY, delta);
+                }
                 else {
-                // Description Button
                 currentX -= (BUTTON_WIDTH + SPACING);
                 descriptionButton.setX(currentX);
                 descriptionButton.setY(y);
                 descriptionButton.render(context, mouseX, mouseY, delta);
 
-                // Reset Button
                 currentX -= (BUTTON_WIDTH + SPACING);
                 resetButton.setX(currentX);
                 resetButton.setY(y);
                 resetButton.render(context, mouseX, mouseY, delta);
 
-                // Value Widget
                 currentX -= (WIDGET_WIDTH + SPACING);
                 valueWidget.setX(currentX);
                 valueWidget.setY(y);
                 valueWidget.render(context, mouseX, mouseY, delta);
 
-                // Title
                 int titleWidth = currentX - x - SPACING;
                 Text fullTitle = Text.translatable(option.title);
                 Text trimmedTitle = Text.literal(client.textRenderer.trimToWidth(fullTitle, titleWidth).getString());
@@ -200,40 +216,42 @@ public class ConfigScreen extends Screen {
                     context.drawTooltip(client.textRenderer, fullTitle, mouseX, mouseY);
                 }}
             }
-            *///?} else if >=1.21.9 {
-            @Override
+            //?} else if >=1.21.9 {
+            /*@Override
             public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
                 updateWidgetPositions();
                 int x = getX();
                 int y = getY();
                 int entryWidth = getWidth();
                 int currentX = x + entryWidth;
+
                 if(option instanceof TextOption){
                     TextWidget titleText = new TextWidget(((TextOption)option).title, client.textRenderer).setTextColor(0xFFFFFF);
                     titleText.setX(entryWidth/2 + x - titleText.getWidth() / 2);
                     titleText.setY(y + 6);
                     titleText.renderWidget(context, mouseX, mouseY, delta);
                 }
+                else if(option instanceof ButtonOption){
+                    buttonWidget.setX(entryWidth/2 + x - 250 / 2);
+                    buttonWidget.setY(y);
+                    buttonWidget.render(context, mouseX, mouseY, delta);
+                }
                 else {
-                    // Description Button
                     currentX -= (BUTTON_WIDTH + SPACING);
                     descriptionButton.setX(currentX);
                     descriptionButton.setY(y);
                     descriptionButton.render(context, mouseX, mouseY, delta);
 
-                    // Reset Button
                     currentX -= (BUTTON_WIDTH + SPACING);
                     resetButton.setX(currentX);
                     resetButton.setY(y);
                     resetButton.render(context, mouseX, mouseY, delta);
 
-                    // Value Widget
                     currentX -= (WIDGET_WIDTH + SPACING);
                     valueWidget.setX(currentX);
                     valueWidget.setY(y);
                     valueWidget.render(context, mouseX, mouseY, delta);
 
-                    // Title
                     int titleWidth = currentX - x - SPACING;
                     Text fullTitle = Text.translatable(option.title);
                     Text trimmedTitle = Text.literal(client.textRenderer.trimToWidth(fullTitle, titleWidth).getString());
@@ -251,6 +269,9 @@ public class ConfigScreen extends Screen {
             @Override
             public boolean mouseClicked(Click click, boolean doubled) {
                 updateWidgetPositions();
+                if(buttonWidget != null){
+                    if (buttonWidget.mouseClicked(click,doubled)) return true;
+                }
                 if (valueWidget.mouseClicked(click,doubled)) return true;
                 if (resetButton.mouseClicked(click,doubled)) return true;
                 if (descriptionButton.mouseClicked(click,doubled)) return true;
@@ -261,6 +282,9 @@ public class ConfigScreen extends Screen {
 
             @Override
             public boolean mouseReleased(Click click) {
+                if(buttonWidget != null){
+                    if (buttonWidget.mouseReleased(click)) return true;
+                }
                 if (valueWidget.mouseReleased(click)) return true;
                 if (resetButton.mouseReleased(click)) return true;
                 if (descriptionButton.mouseReleased(click)) return true;
@@ -292,7 +316,7 @@ public class ConfigScreen extends Screen {
                 valueWidget.setX(currentX);
                 valueWidget.setY(y);
             }
-            //?}
+            *///?}
         }
     }
 }

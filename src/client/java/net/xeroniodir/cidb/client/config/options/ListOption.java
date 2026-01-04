@@ -14,6 +14,7 @@ public class ListOption<T> extends Option<List<T>> {
     public final TriFunction<T, Consumer<T>, Supplier<T>, Option<T>> elementOptionFactory; // <-- TriFunction
 
     private final Supplier<T> defaultElementSupplier;
+    public int minCount = 0;
 
     public ListOption(String title,
                       List<T> defaultValue,
@@ -21,10 +22,12 @@ public class ListOption<T> extends Option<List<T>> {
                       Consumer<List<T>> setter,
                       Supplier<T> defaultElementSupplier,
                       TriFunction<T, Consumer<T>, Supplier<T>, Option<T>> elementOptionFactory,
-                      String description) {
+                      String description,
+                      int minCount) {
         super(title, defaultValue, getter, setter, description);
         this.defaultElementSupplier = defaultElementSupplier;
         this.elementOptionFactory = elementOptionFactory;
+        this.minCount = minCount;
     }
 
     @FunctionalInterface

@@ -36,5 +36,16 @@
   "cidb.config.uniqueitemcolorlist.desc": "An item map with color lists. \nIf an item is on the map, its durability bar will use colors attached to item in map instead of the default ones.",
   "cidb.config.colors.title": "Colors",
   "cidb.config.parameters.title": "Parameters",
-  "cidb.config.name": "CIDB Settings"
+  "cidb.config.name": "CIDB Settings",
+
+  "cidb.config.durabilitycolorstyle.name": "Durability Bar Color Style",
+  "cidb.config.durabilitycolorstyle.description": "Defines how the durability bar colors will be displayed. \nVanilla - Vanilla style.\nRainbow - Color changes with time. Speed is taken from Durability Flickering Speed.\nGradient - bar is now gradient. Doesn't affect Text Styles. \nWarning! In gradient color style mod items (which has custom color of bar) will be also replaced. If you don't want this to happen, add item to Unique Item Color List with one color. (This is temporary solution, in future there will be better!)",
+
+  "cdib.barcolorstyles.vanilla": "Vanilla",
+  "cdib.barcolorstyles.rainbow": "Rainbow",
+  "cdib.barcolorstyles.gradient": "Gradient",
+
+  "cidb.config.presets.title": "Presets",
+  "cidb.config.preset1.name": "Rainbow Style",
+  "cidb.config.preset2.name": "Item Style"
 }
