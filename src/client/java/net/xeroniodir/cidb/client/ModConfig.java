@@ -88,10 +88,10 @@ public class ModConfig {
         addItemsToMap(customMap,new Color(0x787FC1).getRGB(),Items.MACE);
 
         //? if >=1.21.9 {
-        addItemsToMap(customMap, copperColor, Items.COPPER_AXE, Items.COPPER_PICKAXE, Items.COPPER_HOE,
+        /*addItemsToMap(customMap, copperColor, Items.COPPER_AXE, Items.COPPER_PICKAXE, Items.COPPER_HOE,
                 Items.COPPER_SHOVEL, Items.COPPER_SWORD, Items.COPPER_HELMET, Items.COPPER_CHESTPLATE,
                 Items.COPPER_LEGGINGS, Items.COPPER_BOOTS, Items.COPPER_HORSE_ARMOR);
-        //?}
+        *///?}
         preset.itemCustomDurabilityColor = customMap;
         preset.colorList = List.of(
                 new Color(0x00FF00).getRGB(),

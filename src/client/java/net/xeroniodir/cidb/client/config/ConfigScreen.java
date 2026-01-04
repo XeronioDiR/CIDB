@@ -2,7 +2,7 @@ package net.xeroniodir.cidb.client.config;
 
 import net.minecraft.client.MinecraftClient;
 //? if >=1.21.9
-import net.minecraft.client.gui.Click;
+/*import net.minecraft.client.gui.Click;*/
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -145,7 +145,7 @@ public class ConfigScreen extends Screen {
                 return List.of(valueWidget, resetButton, descriptionButton);
             }
             //? if <=1.21.8 {
-            /*@Override
+            @Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 if(buttonWidget != null){
                     if (buttonWidget.mouseClicked(mouseX,mouseY,button)) return true;
@@ -216,8 +216,8 @@ public class ConfigScreen extends Screen {
                     context.drawTooltip(client.textRenderer, fullTitle, mouseX, mouseY);
                 }}
             }
-            *///?} else if >=1.21.9 {
-            @Override
+            //?} else if >=1.21.9 {
+            /*@Override
             public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
                 updateWidgetPositions();
                 int x = getX();
@@ -316,7 +316,7 @@ public class ConfigScreen extends Screen {
                 valueWidget.setX(currentX);
                 valueWidget.setY(y);
             }
-            //?}
+            *///?}
         }
     }
 }

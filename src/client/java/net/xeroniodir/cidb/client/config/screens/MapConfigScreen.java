@@ -2,7 +2,7 @@ package net.xeroniodir.cidb.client.config.screens;
 
 import net.minecraft.client.MinecraftClient;
 //? if >=1.21.9
-import net.minecraft.client.gui.Click;
+/*import net.minecraft.client.gui.Click;*/
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -129,7 +129,7 @@ public class MapConfigScreen extends Screen {
                 }).dimensions(0, 0, 20, 20).build();
             }
             //? if <=1.21.8 {
-            /*@Override
+            @Override
             public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
                 keyWidget.setX(x + 2);
                 keyWidget.setY(y);
@@ -186,8 +186,8 @@ public class MapConfigScreen extends Screen {
                 }
                 return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
             }
-            *///?} else if >= 1.21.9 {
-            @Override
+            //?} else if >= 1.21.9 {
+            /*@Override
             public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
                 int x = getX();
                 int y = getY();
@@ -248,7 +248,7 @@ public class MapConfigScreen extends Screen {
                 }
                 return super.mouseDragged(click,offsetX,offsetY);
             }
-            //?}
+            *///?}
 
             public List<? extends Element> children() { return List.of(keyWidget, valueWidget, deleteButton); }
             public List<? extends Selectable> selectableChildren() { return List.of(keyWidget, valueWidget, deleteButton); }
