@@ -61,10 +61,10 @@ public class ListConfigScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
         //? if <1.21.1 {
-        TextWidget titleText = new TextWidget(this.title,client.textRenderer).setTextColor(0xFFFFFF);
-        //?} else {
-        /*TextWidget titleText = new TextWidget(Text.literal(this.title.getString()).withColor(0xFFFFFF),client.textRenderer);
-        *///?}
+        /*TextWidget titleText = new TextWidget(this.title,client.textRenderer).setTextColor(0xFFFFFF);
+        *///?} else {
+        TextWidget titleText = new TextWidget(Text.literal(this.title.getString()).withColor(0xFFFFFF),client.textRenderer);
+        //?}
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
         titleText.setY(10);
         titleText.renderWidget(context,mouseX,mouseY,delta);
