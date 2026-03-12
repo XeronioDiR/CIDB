@@ -1,6 +1,7 @@
 package net.xeroniodir.cidb.client.config.options;
 
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.xeroniodir.cidb.client.ConfigCategory;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.widgets.ColorButtonWidget;
 
@@ -11,8 +12,9 @@ public class ColorOption extends Option<Integer> {
 
     public final boolean hasAlpha;
 
-    public ColorOption(String title, Integer defaultValue, boolean hasAlpha, Supplier<Integer> getter, Consumer<Integer> setter, String description) {
-        super(title, defaultValue, getter, setter, description);
+    public ColorOption(String title, Integer defaultValue, boolean hasAlpha,
+                       Supplier<Integer> getter, Consumer<Integer> setter, String description, ConfigCategory configCategory) {
+        super(title, defaultValue, getter, setter, description,configCategory);
         this.hasAlpha = hasAlpha;
     }
 

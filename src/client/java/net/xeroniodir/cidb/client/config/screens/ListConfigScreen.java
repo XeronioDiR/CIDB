@@ -2,13 +2,14 @@ package net.xeroniodir.cidb.client.config.screens;
 
 import net.minecraft.client.MinecraftClient;
 //? if >=1.21.9
-/*import net.minecraft.client.gui.Click;*/
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.*;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.options.ListOption;
@@ -108,7 +109,7 @@ public class ListConfigScreen extends Screen {
                 }).dimensions(0, 0, 20, 20).build();
             }
             //? if <=1.21.8 {
-            @Override
+            /*@Override
             public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
 
                 TextWidget textWidget = new TextWidget(Text.literal("#" + (index + 1)),client.textRenderer);
@@ -151,16 +152,15 @@ public class ListConfigScreen extends Screen {
                 }
                 return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
             }
-            //?} else if >= 1.21.9 {
-            /*@Override
+            *///?} else if >= 1.21.9 {
+            @Override
             public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
                 int x = getX();
                 int y = getY();
                 int entryWidth = getWidth();
-                TextWidget textWidget = new TextWidget(Text.literal("#" + (index + 1)),client.textRenderer);
+                TextWidget textWidget = new TextWidget(Text.literal("#" + (index + 1)).getWithStyle(Style.EMPTY.withColor(0xAAAAAA)).getFirst(),client.textRenderer);
                 textWidget.setX(x + 5);
                 textWidget.setY(y + 6);
-                textWidget.setTextColor(0xAAAAAA);
                 textWidget.renderWidget(context,mouseX,mouseY,delta);
 
                 int widgetX = x + entryWidth - 25 - 150 - 5;
@@ -201,7 +201,7 @@ public class ListConfigScreen extends Screen {
                 }
                 return super.mouseDragged(click,offsetX,offsetY);
             }
-            *///?}
+            //?}
             public List<? extends Element> children() { return List.of(valueWidget, deleteButton); }
             public List<? extends Selectable> selectableChildren() { return List.of(valueWidget, deleteButton); }
         }

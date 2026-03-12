@@ -1,6 +1,7 @@
 package net.xeroniodir.cidb.client.config.options;
 
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.xeroniodir.cidb.client.ConfigCategory;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.widgets.MapButtonWidget;
 
@@ -32,8 +33,8 @@ public class MapOption<K, V> extends Option<Map<K, V>> {
                      TriFunction<K, Consumer<K>, Supplier<K>, Option<K>> keyOptionFactory,
                      TriFunction<V, Consumer<V>, Supplier<V>, Option<V>> valueOptionFactory,
                      String description,
-                     int minCount) {
-        super(title, defaultValue, getter, setter, description);
+                     int minCount, ConfigCategory configCategory) {
+        super(title, defaultValue, getter, setter, description, configCategory);
         this.defaultKeySupplier = defaultKeySupplier;
         this.defaultValueSupplier = defaultValueSupplier;
         this.keyOptionFactory = keyOptionFactory;
@@ -54,7 +55,6 @@ public class MapOption<K, V> extends Option<Map<K, V>> {
         return valueOptionFactory.apply(value, setter, getter);
     }
 
-    // Методы для создания новых элементов
     public K createNewKeyDefault() { return defaultKeySupplier.get(); }
     public V createNewValueDefault() { return defaultValueSupplier.get(); }
 }

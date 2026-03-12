@@ -3,6 +3,7 @@ package net.xeroniodir.cidb.client.config.options;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.text.Text;
+import net.xeroniodir.cidb.client.ConfigCategory;
 import net.xeroniodir.cidb.client.config.Option;
 
 import java.util.function.Consumer;
@@ -12,8 +13,9 @@ public class IntegerOption extends Option<Integer> {
     private final int min;
     private final int max;
 
-    public IntegerOption(String title, int defaultValue, int min, int max, Supplier<Integer> getter, Consumer<Integer> setter, String description) {
-        super(title, defaultValue, getter, setter, description);
+    public IntegerOption(String title, int defaultValue, int min, int max,
+                         Supplier<Integer> getter, Consumer<Integer> setter, String description, ConfigCategory configCategory) {
+        super(title, defaultValue, getter, setter, description, configCategory);
         this.min = min;
         this.max = max;
     }

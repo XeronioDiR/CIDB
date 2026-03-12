@@ -3,6 +3,7 @@ package net.xeroniodir.cidb.client.config.options;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.SliderWidget;
 import net.minecraft.text.Text;
+import net.xeroniodir.cidb.client.ConfigCategory;
 import net.xeroniodir.cidb.client.config.Option;
 
 import java.util.function.Consumer;
@@ -12,8 +13,9 @@ public class FloatOption extends Option<Float> {
     private final float min;
     private final float max;
 
-    public FloatOption(String title, float defaultValue, float min, float max, Supplier<Float> getter, Consumer<Float> setter, String d) {
-        super(title, defaultValue, getter, setter, d);
+    public FloatOption(String title, float defaultValue, float min, float max,
+                       Supplier<Float> getter, Consumer<Float> setter, String d, ConfigCategory configCategory) {
+        super(title, defaultValue, getter, setter, d, configCategory);
         this.min = min;
         this.max = max;
     }

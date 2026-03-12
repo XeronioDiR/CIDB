@@ -5,14 +5,18 @@
   "cdib.config.durabilitybarincreaseoncritical.description": "If enabled, the durability bar temporarily rises to full length while at critical durability. \nMeanwhile when durability is not critical, bar will reduce faster (not durability).",
   "cdib.config.criticalpercent.description": "The percentage of durability at which the item is considered to be in a critical state.",
   "cdib.config.durabilitytwinklingspeed.description": "Controls how fast the durability bar flickers at critical durability.",
-  "cdib.config.durabilitybarstyle.description": "Defines how the durability bar is displayed. \nHorizontal - Vanilla style.\nVertical - Vertical bar at left side of item, decreasing from top to bottom.\nPercent - Displays durabiltiy as a percentage\nAbsolute - Displays the remaining durability as a raw value, using short scales (1.0k,1.0m,1.0b),when needed.",
+  "cdib.config.durabilitybarstyle.description": "Defines how the durability bar is displayed. \nHorizontal - Vanilla style.\nVertical - Vertical bar at left side of item, decreasing from top to bottom.",
+  "cidb.config.durabilitytextstyle.description": "Defines how the durability text is displayed. \nPercent - Displays durabiltiy as a percentage\nAbsolute - Displays the remaining durability as a raw value, using short scales (1.0k,1.0m,1.0b),when needed.",
   "cdib.config.bundlebarcolor.description": "The color used for bar the non-full bundle.",
   "cdib.config.fullbundlebarcolor.description": "The color used for the bar of full bundle.",
 
   "cdib.barstyles.horizontal": "Horizontal",
   "cdib.barstyles.vertical": "Vertical",
-  "cdib.barstyles.percent": "Percents",
-  "cdib.barstyles.absolute": "Absolute",
+  "cdib.textstyles.percent": "Percents",
+  "cdib.textstyles.absolute": "Absolute",
+
+  "cdib.barstyles.none": "None",
+  "cdib.textstyles.none": "None",
 
   "cdib.config.colorlist.name": "Durability Colors",
   "cdib.config.twinklingdurabilitycolor.name": "Durability Flickering Color",
@@ -32,8 +36,8 @@
   "cidb.cconfig.elements": "Elements",
   "cidb.cconfig.pairs": "Pairs",
 
-  "cidb.config.uniqueitemcolorlist.name": "Unique Item Color List",
-  "cidb.config.uniqueitemcolorlist.desc": "An item map with color lists. \nIf an item is on the map, its durability bar will use colors attached to item in map instead of the default ones.",
+  "cidb.config.uniqueitemcolorlist.name": "Item Color Pallets List",
+  "cidb.config.uniqueitemcolorlist.desc": "An color pallet list for every (added) item. \nIf an item is the list, its durability bar will use color palette to item in list instead of the default ones.",
   "cidb.config.colors.title": "Colors",
   "cidb.config.parameters.title": "Parameters",
   "cidb.config.name": "CIDB Settings",
@@ -47,5 +51,18 @@
 
   "cidb.config.presets.title": "Presets",
   "cidb.config.preset1.name": "Rainbow Style",
-  "cidb.config.preset2.name": "Item Style"
+  "cidb.config.preset2.name": "Item Style",
+
+  "cidb.title": "CIDB Config",
+
+  "cidb.config.category.general": "General",
+  "cidb.config.category.exclusive": "Exclusive",
+  "cidb.config.category.presets": "Presets",
+
+  "cidb.config.ignoremoditems.name": "Ignore Mod Items",
+  "cidb.config.ignoremoditems.description": "If enabled, item from other mods will be ignored by mod.",
+  "cidb.config.itempick": "Select Item",
+  "cidb.config.itempick.back": "Back",
+  "cidb.config.itempick.reset": "Reset",
+  "cidb.config.durabilitytextstyle.name": "Durability Text Style"
 }

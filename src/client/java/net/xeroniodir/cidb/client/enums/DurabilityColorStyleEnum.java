@@ -1,8 +1,8 @@
-package net.xeroniodir.cidb.client;
+package net.xeroniodir.cidb.client.enums;
 
 import net.minecraft.text.Text;
 
-public enum DurabilityColorStyleEnum {
+public enum DurabilityColorStyleEnum implements ConfigEnum{
     VANILLA,
     RAINBOW,
     GRADIENT;

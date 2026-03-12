@@ -3,7 +3,10 @@ package net.xeroniodir.cidb.client.config.options;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
-import net.xeroniodir.cidb.client.DurabilityBarStyleEnum;
+import net.xeroniodir.cidb.client.ConfigCategory;
+import net.xeroniodir.cidb.client.enums.ConfigEnum;
+import net.xeroniodir.cidb.client.enums.DurabilityBarStyleEnum;
+import net.xeroniodir.cidb.client.enums.DurabilityColorStyleEnum;
 import net.xeroniodir.cidb.client.config.Option;
 
 import java.util.function.Consumer;
@@ -13,8 +16,9 @@ public class EnumOption<E extends Enum<E>> extends Option<E> {
 
     private final E[] enumValues;
 
-    public EnumOption(String title, E defaultValue, Supplier<E> getter, Consumer<E> setter, Class<E> enumClass, String d) {
-        super(title, defaultValue, getter, setter, d);
+    public EnumOption(String title, E defaultValue, Supplier<E> getter,
+                      Consumer<E> setter, Class<E> enumClass, String d, ConfigCategory configCategory) {
+        super(title, defaultValue, getter, setter, d, configCategory);
         this.enumValues = enumClass.getEnumConstants();
     }
 
@@ -30,8 +34,8 @@ public class EnumOption<E extends Enum<E>> extends Option<E> {
     }
 
     private Text getText() {
-        if (getter.get() instanceof DurabilityBarStyleEnum) {
-            return ((DurabilityBarStyleEnum) getter.get()).getDisplayName();
+        if (getter.get() instanceof ConfigEnum nGetter) {
+            return nGetter.getDisplayName();
         }
         return Text.literal(getter.get().name());
     }

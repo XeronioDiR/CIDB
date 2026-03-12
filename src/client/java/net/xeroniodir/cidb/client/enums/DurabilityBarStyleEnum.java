@@ -1,12 +1,11 @@
-package net.xeroniodir.cidb.client;
+package net.xeroniodir.cidb.client.enums;
 
 import net.minecraft.text.Text;
 
-public enum DurabilityBarStyleEnum {
+public enum DurabilityBarStyleEnum implements ConfigEnum {
     HORIZONTAL,
     VERTICAL,
-    ABSOLUTE,
-    PERCENT;
+    NONE;
 
     public Text getDisplayName() {
         return Text.translatable(("cdib.barstyles." + name().toLowerCase()));

@@ -5,6 +5,7 @@ import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.item.Item;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.xeroniodir.cidb.client.ConfigCategory;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.widgets.ItemButtonWidget;
 
@@ -14,8 +15,8 @@ import java.util.function.Supplier;
 
 public class ButtonOption extends Option<NoType> {
     public final ButtonWidget.PressAction action;
-    public ButtonOption(String title, ButtonWidget.PressAction action) {
-        super(title, null, null, null, "");
+    public ButtonOption(String title, ButtonWidget.PressAction action, ConfigCategory configCategory) {
+        super(title, null, null, null, "",configCategory);
         this.action = action;
     }
 

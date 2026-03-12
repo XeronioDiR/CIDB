@@ -5,6 +5,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.MultilineTextWidget;
 import net.minecraft.client.gui.widget.TextWidget;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 
 public class DescriptionScreen extends Screen {
@@ -28,12 +29,12 @@ public class DescriptionScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
 
-        TextWidget titleText = new TextWidget(this.title, client.textRenderer).setTextColor(0xFFFFFF);
+        TextWidget titleText = new TextWidget(this.title.getWithStyle(Style.EMPTY.withColor(0xFFFFFF)).getFirst(), client.textRenderer);
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
         titleText.setY(20);
         titleText.renderWidget(context, mouseX, mouseY, delta);
 
-        MultilineTextWidget descriptionText = new MultilineTextWidget(this.description, client.textRenderer).setTextColor(0xFFFFFF)
+        MultilineTextWidget descriptionText = new MultilineTextWidget(this.description.getWithStyle(Style.EMPTY.withColor(0xFFFFFF)).getFirst(), client.textRenderer)
                 .setCentered(true).setMaxWidth(420);
         descriptionText.setX(this.width / 2 - descriptionText.getWidth() / 2);
         descriptionText.setY(50);

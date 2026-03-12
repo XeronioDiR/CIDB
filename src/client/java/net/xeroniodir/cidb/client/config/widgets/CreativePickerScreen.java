@@ -16,7 +16,7 @@ public class CreativePickerScreen extends Screen {
     private static final int FOOTER_HEIGHT = 30;
 
     public CreativePickerScreen(Screen parent, ItemOption option) {
-        super(Text.literal("Выберите Предмет"));
+        super(Text.translatable("cidb.config.itempick"));
         this.parent = parent;
         this.option = option;
     }
@@ -36,11 +36,11 @@ public class CreativePickerScreen extends Screen {
         );
         this.addDrawableChild(itemList);
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Назад"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.config.itempick.back"), b -> {
             this.client.setScreen(parent);
         }).dimensions(10, this.height - 25, 60, 20).build());
 
-        this.addDrawableChild(ButtonWidget.builder(Text.literal("Сброс"), b -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.config.itempick.reset"), b -> {
             option.reset();
             this.client.setScreen(parent);
         }).dimensions(this.width - 70, this.height - 25, 60, 20).build());

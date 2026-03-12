@@ -1,6 +1,7 @@
 package net.xeroniodir.cidb.client.config.options;
 
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.xeroniodir.cidb.client.ConfigCategory;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.widgets.ListButtonWidget;
 
@@ -23,8 +24,8 @@ public class ListOption<T> extends Option<List<T>> {
                       Supplier<T> defaultElementSupplier,
                       TriFunction<T, Consumer<T>, Supplier<T>, Option<T>> elementOptionFactory,
                       String description,
-                      int minCount) {
-        super(title, defaultValue, getter, setter, description);
+                      int minCount, ConfigCategory configCategory) {
+        super(title, defaultValue, getter, setter, description, configCategory);
         this.defaultElementSupplier = defaultElementSupplier;
         this.elementOptionFactory = elementOptionFactory;
         this.minCount = minCount;

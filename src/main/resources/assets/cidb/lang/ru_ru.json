@@ -5,14 +5,17 @@
   "cdib.config.durabilitybarincreaseoncritical.description": "Если включён, полоска прочности поднимется до максимума. \nОднако, когда прочность не критическая, полоска будет убывать быстрее (не прочность).",
   "cdib.config.criticalpercent.description": "Процент прочности, который считается критической отметкой.",
   "cdib.config.durabilitytwinklingspeed.description": "Контролирует, насколько быстро будет мерцать полоска, когда прочность находится на критической отметке.",
-  "cdib.config.durabilitybarstyle.description": "Определяет как будет отображатся полоска. \nГоризонтальный - Стандартный стиль.\nВертикальный - Вертикальная полоска слева от предмета, уменьшающаяся сверху вниз.\nПроцент - Прочность отображается процентами.\nАбсолютный - Отображает прочность в чистом виде, используя сокращения (1.0k,1.0m,1.0b) когда нужно.",
+  "cdib.config.durabilitybarstyle.description": "Определяет как будет отображатся полоска. \nГоризонтальный - Стандартный стиль.\nВертикальный - Вертикальная полоска слева от предмета, уменьшающаяся сверху вниз.",
   "cdib.config.bundlebarcolor.description": "Цвет, используемый для полоски незабитого мешка",
   "cdib.config.fullbundlebarcolor.description": "Цвет, используемый для полоски забитого мешка",
 
   "cdib.barstyles.horizontal": "Горизонтальный",
   "cdib.barstyles.vertical": "Вертикальный",
-  "cdib.barstyles.percent": "Процент",
-  "cdib.barstyles.absolute": "Абсолютный",
+  "cdib.textstyles.percent": "Процент",
+  "cdib.textstyles.absolute": "Абсолютный",
+
+  "cdib.barstyles.none": "Никакой",
+  "cdib.textstyles.none": "Никакой",
 
   "cdib.config.colorlist.name": "Цвета прочности",
   "cdib.config.twinklingdurabilitycolor.name": "Цвет мерцания прочности",
@@ -32,8 +35,8 @@
   "cidb.cconfig.elements": "Элементов",
   "cidb.cconfig.pairs": "Пар",
 
-  "cidb.config.uniqueitemcolorlist.name": "Уникальный Список Цветов Предмета",
-  "cidb.config.uniqueitemcolorlist.desc": "Карта предметов с списками цветов. \nЕсли предмет находится в карте, то его полоска прочности будет использовать цвета, привязанных к предмету в карте, вместо стандартных.",
+  "cidb.config.uniqueitemcolorlist.name": "Палитры Цветов Предметов",
+  "cidb.config.uniqueitemcolorlist.desc": "Список палитр цветов для каждого (добавленного) предмета. \nЕсли предмет находится в списке, то его полоска прочности будет использовать цвета, привязанных к предмету в палитре, вместо стандартных.",
   "cidb.config.colors.title": "Цвета",
   "cidb.config.parameters.title": "Параметры",
   "cidb.config.name": "Настройки CIDB",
@@ -47,5 +50,21 @@
 
   "cidb.config.presets.title": "Пресеты",
   "cidb.config.preset1.name": "Радужный стиль",
-  "cidb.config.preset2.name": "Предметный стиль"
+  "cidb.config.preset2.name": "Предметный стиль",
+
+  "cidb.title": "Настройки CIDB",
+
+  "cidb.config.category.general": "Основные",
+  "cidb.config.category.exclusive": "Экслюзивные",
+  "cidb.config.category.presets": "Пресеты",
+  "cidb.config.itempick": "Выбрать Предмет",
+  "cidb.config.itempick.back": "Обратно",
+  "cidb.config.itempick.reset": "Сброс",
+  "cidb.config.ignoremoditems.name": "Игнорировать Предметы Модификаций",
+  "cidb.config.ignoremoditems.description": "Если включено, то предметы из модификаций будут игнорированы модом.",
+  "cdib.barstyles.percent": "Percents",
+  "cdib.barstyles.absolute": "Absolute",
+
+  "cidb.config.durabilitytextstyle.name": "Стиль текста прочности",
+  "cidb.config.durabilitytextstyle.description": "Определяет как будет отображатся текст. \nПроцент - Прочность отображается процентами.\nАбсолютный - Отображает прочность в чистом виде, используя сокращения (1.0k,1.0m,1.0b) когда нужно."
 }

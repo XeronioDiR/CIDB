@@ -2,7 +2,7 @@ package net.xeroniodir.cidb.client.config.screens;
 
 import net.minecraft.client.MinecraftClient;
 //? if >=1.21.9
-/*import net.minecraft.client.gui.Click;*/
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -12,6 +12,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.EntryListWidget;
 import net.minecraft.client.gui.widget.TextWidget;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.xeroniodir.cidb.client.config.Option;
 import net.xeroniodir.cidb.client.config.options.MapOption;
@@ -70,7 +71,7 @@ public class MapConfigScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
 
-        TextWidget titleText = new TextWidget(this.title,client.textRenderer).setTextColor(0xFFFFFF);
+        TextWidget titleText = new TextWidget(this.title.getWithStyle(Style.EMPTY.withColor(0xFFFFFF)).getFirst(),client.textRenderer);
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
         titleText.setY(10);
         titleText.renderWidget(context,mouseX,mouseY,delta);
@@ -129,7 +130,7 @@ public class MapConfigScreen extends Screen {
                 }).dimensions(0, 0, 20, 20).build();
             }
             //? if <=1.21.8 {
-            @Override
+            /*@Override
             public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float delta) {
                 keyWidget.setX(x + 2);
                 keyWidget.setY(y);
@@ -186,8 +187,8 @@ public class MapConfigScreen extends Screen {
                 }
                 return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
             }
-            //?} else if >= 1.21.9 {
-            /*@Override
+            *///?} else if >= 1.21.9 {
+            @Override
             public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
                 int x = getX();
                 int y = getY();
@@ -197,10 +198,9 @@ public class MapConfigScreen extends Screen {
                 keyWidget.setWidth(100);
                 keyWidget.render(context, mouseX, mouseY, delta);
 
-                TextWidget textWidget = new TextWidget(Text.literal("->"),client.textRenderer);
+                TextWidget textWidget = new TextWidget(Text.literal("->").getWithStyle(Style.EMPTY.withColor(0xAAAAAA)).getFirst(),client.textRenderer);
                 textWidget.setX(x + 105);
                 textWidget.setY(y + 6);
-                textWidget.setTextColor(0xAAAAAA);
                 textWidget.renderWidget(context,mouseX,mouseY,delta);
 
                 valueWidget.setX(x + 120);
@@ -248,7 +248,7 @@ public class MapConfigScreen extends Screen {
                 }
                 return super.mouseDragged(click,offsetX,offsetY);
             }
-            *///?}
+            //?}
 
             public List<? extends Element> children() { return List.of(keyWidget, valueWidget, deleteButton); }
             public List<? extends Selectable> selectableChildren() { return List.of(keyWidget, valueWidget, deleteButton); }

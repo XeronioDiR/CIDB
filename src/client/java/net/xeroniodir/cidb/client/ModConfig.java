@@ -2,8 +2,12 @@ package net.xeroniodir.cidb.client;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.xeroniodir.cidb.client.enums.DurabilityBarStyleEnum;
+import net.xeroniodir.cidb.client.enums.DurabilityColorStyleEnum;
+import net.xeroniodir.cidb.client.enums.DurabilityTextStyleEnum;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +15,7 @@ import java.util.Map;
 public class ModConfig {
     public boolean durabilityTwinkling = true;
     public boolean durabilityBarLengthOnCritical = true;
+    public boolean ignoreModItems = true;
     public double twinklingSpeed = 1;
     public int durabiltiyProcent = 25;
     public int bundleBarColor = 0xFF7087FF;
@@ -19,7 +24,21 @@ public class ModConfig {
     public int twinklingDurabilityColor = 0xFFFF9898;
     public Map<String,List<Integer>> itemCustomDurabilityColor = Map.of(Items.DIAMOND_AXE.toString(), List.of(0xFF32E8C9,Color.red.getRGB()),
             Items.IRON_AXE.toString(), List.of(0xFFFCFCFC,Color.green.getRGB(),Color.red.getRGB()));
+    public Map<String,DurabilityBarStyleEnum> itemCustomDurabilityStyle = Map.of(Items.DIAMOND_AXE.toString(), DurabilityBarStyleEnum.VERTICAL,
+            Items.IRON_AXE.toString(), DurabilityBarStyleEnum.HORIZONTAL);
+    public Map<String, DurabilityColorStyleEnum> itemCustomColorStyle = Map.of(Items.DIAMOND_AXE.toString(), DurabilityColorStyleEnum.VANILLA,
+            Items.IRON_AXE.toString(), DurabilityColorStyleEnum.GRADIENT);
+    public Map<String,DurabilityTextStyleEnum> itemCustomTextStyle = Map.of(Items.DIAMOND_AXE.toString(), DurabilityTextStyleEnum.ABSOLUTE,
+            Items.IRON_AXE.toString(), DurabilityTextStyleEnum.PERCENT);
+    public Map<String,Integer> itemCustomDurabilityProcent = Map.of(Items.DIAMOND_AXE.toString(), 10,
+            Items.IRON_AXE.toString(), 15);
+    public Map<String,Double> itemCustomTwinklingSpeed = Map.of(Items.DIAMOND_AXE.toString(), 0.5,
+            Items.IRON_AXE.toString(), 2.0);
+    public Map<String,Boolean> itemCustomBarLengthOnCritical = Map.of(Items.DIAMOND_AXE.toString(), false,
+            Items.IRON_AXE.toString(), true);
+    public List<String> itemIgnorList = new ArrayList<>();
     public DurabilityBarStyleEnum durabilityBarStyle = DurabilityBarStyleEnum.HORIZONTAL;
+    public DurabilityTextStyleEnum durabilityTextStyle = DurabilityTextStyleEnum.ABSOLUTE;
     public DurabilityColorStyleEnum durabilityColorStyle = DurabilityColorStyleEnum.VANILLA;
 
     public static ModConfig createDefault() {
@@ -88,10 +107,10 @@ public class ModConfig {
         addItemsToMap(customMap,new Color(0x787FC1).getRGB(),Items.MACE);
 
         //? if >=1.21.9 {
-        /*addItemsToMap(customMap, copperColor, Items.COPPER_AXE, Items.COPPER_PICKAXE, Items.COPPER_HOE,
+        addItemsToMap(customMap, copperColor, Items.COPPER_AXE, Items.COPPER_PICKAXE, Items.COPPER_HOE,
                 Items.COPPER_SHOVEL, Items.COPPER_SWORD, Items.COPPER_HELMET, Items.COPPER_CHESTPLATE,
                 Items.COPPER_LEGGINGS, Items.COPPER_BOOTS, Items.COPPER_HORSE_ARMOR);
-        *///?}
+        //?}
         preset.itemCustomDurabilityColor = customMap;
         preset.colorList = List.of(
                 new Color(0x00FF00).getRGB(),
@@ -103,7 +122,7 @@ public class ModConfig {
 
     private static void addItemsToMap(Map<String, List<Integer>> map, int color, Item... items) {
         for (Item item : items) {
-            map.put(item.toString(), List.of(color | 0xFF000000)); // Ensure Alpha channel is set
+            map.put(item.toString(), List.of(color | 0xFF000000));
         }
     }
 }

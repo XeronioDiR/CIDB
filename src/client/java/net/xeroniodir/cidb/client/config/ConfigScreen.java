@@ -2,34 +2,37 @@ package net.xeroniodir.cidb.client.config;
 
 import net.minecraft.client.MinecraftClient;
 //? if >=1.21.9
-/*import net.minecraft.client.gui.Click;*/
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
+import net.minecraft.client.gui.ScreenRect;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.EntryListWidget;
-import net.minecraft.client.gui.widget.TextWidget;
+import net.minecraft.client.gui.tab.GridScreenTab;
+import net.minecraft.client.gui.tab.TabManager;
+import net.minecraft.client.gui.widget.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.xeroniodir.cidb.client.ConfigCategory;
 import net.xeroniodir.cidb.client.config.options.ButtonOption;
 import net.xeroniodir.cidb.client.config.options.TextOption;
 import net.xeroniodir.cidb.client.config.screens.DescriptionScreen;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ConfigScreen extends Screen {
     private final Screen parent;
     private final List<Option<?>> options;
+    private Map<ConfigCategory,List<Option<?>>> categoryListMap = new HashMap<>();
     private ConfigOptionList optionList;
     private ButtonWidget cancelButton;
+    private ConfigCategory selectedCategory = ConfigCategory.GENERAL;
 
     public ConfigScreen(Screen parent, List<Option<?>> options) {
-        super(Text.literal("Настройки CIDB"));
+        super(Text.translatable("cidb.title"));
         this.parent = parent;
         this.options = options;
     }
@@ -37,23 +40,29 @@ public class ConfigScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        optionList = new ConfigOptionList(this.client, this.width, this.height - 60, 32, 23);
+        optionList = new ConfigOptionList(this.client, this.width, this.height - 80, 52, 23);
+        for(ConfigCategory category : ConfigCategory.values()){
+            categoryListMap.put(category,new ArrayList<>());
+        }
 
         for (Option<?> option : options) {
-            optionList.addOption(option);
+            categoryListMap.get(option.getCategory()).add(option);
         }
+        changeCategory();
         this.addDrawableChild(optionList);
         int buttonY = this.height - 26;
         int buttonHeight = 20;
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.save"), b -> {
             ConfigManager.save();
         }).dimensions(this.width / 2 - 37, buttonY, 75, buttonHeight).build());
+
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.cconfig.reset"), b -> {
             for (Option<?> option : options) {
                 option.reset();
             }
             this.client.setScreen(this);
         }).dimensions(this.width / 2 - 135, buttonY, 75, buttonHeight).build());
+
         cancelButton = ButtonWidget.builder(Text.translatable(ConfigManager.isEqual() ? "cidb.cconfig.exit" : "cidb.cconfig.cancel"), b -> {
             if (ConfigManager.isEqual()) {
                 this.client.setScreen(parent);
@@ -62,7 +71,30 @@ public class ConfigScreen extends Screen {
                 this.client.setScreen(this);
             }
         }).dimensions(this.width / 2 + 61, this.height - 26, 75, 20).build();
+
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.config.category.general"), b -> {
+            selectedCategory = ConfigCategory.GENERAL;
+            changeCategory();
+        }).dimensions(this.width / 2 - 115, 47 - buttonHeight, 75, buttonHeight).build());
+
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.config.category.exclusive"), b -> {
+            selectedCategory = ConfigCategory.EXCLUSIVE;
+            changeCategory();
+        }).dimensions(this.width / 2 - 37, 47 - buttonHeight, 75, buttonHeight).build());
+
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("cidb.config.category.presets"), b -> {
+            selectedCategory = ConfigCategory.PRESETS;
+            changeCategory();
+        }).dimensions(this.width / 2 + 41, 47 - buttonHeight, 75, buttonHeight).build());
+
         this.addDrawableChild(cancelButton);
+    }
+
+    public void changeCategory(){
+        optionList.removeOptions();
+        for(Option<?> option : categoryListMap.get(selectedCategory)){
+            optionList.addOption(option);
+        }
     }
 
     @Override
@@ -70,7 +102,7 @@ public class ConfigScreen extends Screen {
         super.render(context, mouseX, mouseY, delta);
         cancelButton.setMessage(Text.translatable(ConfigManager.isEqual() ? "cidb.cconfig.exit" : "cidb.cconfig.cancel"));
 
-        TextWidget titleText = new TextWidget(this.title, client.textRenderer).setTextColor(0xFFFFFF);
+        TextWidget titleText = new TextWidget(this.title.getWithStyle(Style.EMPTY.withColor(0xFFFFFF)).getFirst(), client.textRenderer);
         titleText.setX(this.width / 2 - titleText.getWidth() / 2);
         titleText.setY(10);
         titleText.renderWidget(context, mouseX, mouseY, delta);
@@ -90,6 +122,12 @@ public class ConfigScreen extends Screen {
 
         public void addOption(Option<?> option) {
             this.addEntry(new OptionEntry(option));
+        }
+
+        public void removeOptions(){
+            for(int ei = getEntryCount()-1; ei >= 0; ei--){
+                removeEntry(this.children().get(ei));
+            }
         }
 
         @Override
@@ -145,7 +183,7 @@ public class ConfigScreen extends Screen {
                 return List.of(valueWidget, resetButton, descriptionButton);
             }
             //? if <=1.21.8 {
-            @Override
+            /*@Override
             public boolean mouseClicked(double mouseX, double mouseY, int button) {
                 if(buttonWidget != null){
                     if (buttonWidget.mouseClicked(mouseX,mouseY,button)) return true;
@@ -216,8 +254,8 @@ public class ConfigScreen extends Screen {
                     context.drawTooltip(client.textRenderer, fullTitle, mouseX, mouseY);
                 }}
             }
-            //?} else if >=1.21.9 {
-            /*@Override
+            *///?} else if >=1.21.9 {
+            @Override
             public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float delta) {
                 updateWidgetPositions();
                 int x = getX();
@@ -226,7 +264,7 @@ public class ConfigScreen extends Screen {
                 int currentX = x + entryWidth;
 
                 if(option instanceof TextOption){
-                    TextWidget titleText = new TextWidget(((TextOption)option).title, client.textRenderer).setTextColor(0xFFFFFF);
+                    TextWidget titleText = new TextWidget(((TextOption)option).title.getWithStyle(Style.EMPTY.withColor(0xFFFFFF)).getFirst(), client.textRenderer);
                     titleText.setX(entryWidth/2 + x - titleText.getWidth() / 2);
                     titleText.setY(y + 6);
                     titleText.renderWidget(context, mouseX, mouseY, delta);
@@ -256,7 +294,7 @@ public class ConfigScreen extends Screen {
                     Text fullTitle = Text.translatable(option.title);
                     Text trimmedTitle = Text.literal(client.textRenderer.trimToWidth(fullTitle, titleWidth).getString());
 
-                    TextWidget titleText = new TextWidget(trimmedTitle, client.textRenderer).setTextColor(0xFFFFFF);
+                    TextWidget titleText = new TextWidget(trimmedTitle.getWithStyle(Style.EMPTY.withColor(0xFFFFFF)).getFirst(), client.textRenderer);
                     titleText.setX(x + 5);
                     titleText.setY(y + 6);
                     titleText.renderWidget(context, mouseX, mouseY, delta);
@@ -316,7 +354,7 @@ public class ConfigScreen extends Screen {
                 valueWidget.setX(currentX);
                 valueWidget.setY(y);
             }
-            *///?}
+            //?}
         }
     }
 }
